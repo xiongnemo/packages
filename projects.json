@@ -1,0 +1,6 @@
+{
+  "projects": [
+    { "repo": "xiongnemo/Saki", "keep": 3 },
+    { "repo": "xiongnemo/nermius", "keep": 3 }
+  ]
+}
