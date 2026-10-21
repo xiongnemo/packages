@@ -1,0 +1,168 @@
+name: Publish
+
+# Rebuilds every index from the projects' GitHub Releases on each run, so there
+# is no state here to go stale or to be written by two runs at once; the
+# concurrency group only keeps deploys in order.
+#
+# A project's release job dispatches `release-published` with the tag it just
+# published. The schedule is the backstop for releases that could not dispatch.
+
+on:
+  repository_dispatch:
+    types: [release-published]
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Collect, index and sign
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: work/cache
+          key: packages-${{ github.run_id }}
+          restore-keys: packages-
+
+      - name: Collect release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DISPATCH_REPO: ${{ github.event.client_payload.repository }}
+          DISPATCH_TAG: ${{ github.event.client_payload.tag }}
+        run: |
+          set -euo pipefail
+          include=()
+          if [ -n "${DISPATCH_REPO:-}" ] && [ -n "${DISPATCH_TAG:-}" ]; then
+            echo "dispatched by ${DISPATCH_REPO} ${DISPATCH_TAG}"
+            include=(--include "${DISPATCH_REPO}@${DISPATCH_TAG}")
+          fi
+          python3 scripts/collect.py projects.json work site "${include[@]}"
+
+      - name: Index and sign
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+          APK_SIGNING_KEY: ${{ secrets.APK_SIGNING_KEY }}
+          APK_SIGNING_KEY_NAME: ${{ vars.APK_SIGNING_KEY_NAME }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq apt-utils createrepo-c >/dev/null
+          bash scripts/index.sh work site
+          find site -type f | sort
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: site
+          if-no-files-found: error
+
+  # Installs from the built site exactly as a user would, with the site served
+  # by scripts/serve.py: it applies the generated _redirects as Pages would, so
+  # every package really is fetched from GitHub through a 302.
+  test:
+    name: Install on ${{ matrix.image }} (${{ matrix.arch }})
+    needs: build
+    runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { image: "debian:stable", arch: amd64 }
+          - { image: "debian:stable", arch: arm64 }
+          - { image: "ubuntu:22.04", arch: amd64 }
+          - { image: "ubuntu:24.04", arch: amd64 }
+          - { image: "fedora:latest", arch: amd64 }
+          - { image: "fedora:latest", arch: arm64 }
+          - { image: "rockylinux:9", arch: amd64 }
+          - { image: "alpine:3.21", arch: amd64 }
+          - { image: "alpine:3.24", arch: amd64 }
+          - { image: "alpine:3.24", arch: arm64 }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site
+
+      - name: Install saki and nermius from the site
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/serve.py site 8080 > server.log 2>&1 &
+          sleep 1
+          status=0
+          docker run --rm --network host -e BASE=http://127.0.0.1:8080 -e APK_KEY="$(cat site/keys/apk-key-name)" \
+            "${{ matrix.image }}" sh -euc '
+              if command -v apt-get >/dev/null; then
+                export DEBIAN_FRONTEND=noninteractive
+                apt-get update -qq && apt-get install -y -qq curl ca-certificates >/dev/null
+                curl -fsSLo /usr/share/keyrings/xiongnemo.gpg "$BASE/keys/xiongnemo-packages.gpg"
+                echo "deb [signed-by=/usr/share/keyrings/xiongnemo.gpg] $BASE/apt nightly main" > /etc/apt/sources.list.d/xiongnemo.list
+                apt-get update -qq
+                apt-get install -y saki nermius
+              elif command -v dnf >/dev/null; then
+                curl -fsSLo /etc/yum.repos.d/xiongnemo-nightly.repo "$BASE/rpm/xiongnemo-nightly.repo"
+                sed -i "s|^baseurl=.*|baseurl=$BASE/rpm/nightly|; s|^gpgkey=.*|gpgkey=$BASE/keys/xiongnemo-packages.asc|" /etc/yum.repos.d/xiongnemo-nightly.repo
+                dnf install -y saki nermius
+              else
+                wget -qO "/etc/apk/keys/$APK_KEY" "$BASE/keys/$APK_KEY"
+                echo "$BASE/apk/nightly" >> /etc/apk/repositories
+                apk update
+                apk add saki nermius
+              fi
+              saki --version
+              nermius version
+            ' || status=$?
+          echo "== requests"
+          cat server.log
+          exit $status
+
+  deploy:
+    name: Deploy
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site
+
+      # Cloudflare Pages and Netlify read the same _redirects syntax, so either
+      # host serves this site unchanged. Neither is configured until its secrets
+      # exist, and a site signed with throwaway keys is never deployed.
+      - name: Deploy to Cloudflare Pages or Netlify
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'xiongnemo-packages' }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          set -euo pipefail
+          if [ -f site/TEST-ONLY ]; then
+            echo "::notice title=Not deployed::the site was signed with throwaway keys; set GPG_SIGNING_KEY, APK_SIGNING_KEY and APK_SIGNING_KEY_NAME."
+            exit 0
+          fi
+          rm -f site/TEST-ONLY
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ] && [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
+            npx --yes wrangler@4 pages deploy site --project-name "$CLOUDFLARE_PAGES_PROJECT" --branch main --commit-dirty=true
+          elif [ -n "${NETLIFY_AUTH_TOKEN:-}" ] && [ -n "${NETLIFY_SITE_ID:-}" ]; then
+            npx --yes netlify-cli@latest deploy --prod --dir site --site "$NETLIFY_SITE_ID" --no-build
+          else
+            echo "::notice title=Not deployed::no Cloudflare or Netlify credentials; the site is the 'site' artifact of this run."
+          fi
