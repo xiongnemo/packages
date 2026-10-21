@@ -52,17 +52,27 @@ for channel in nightly stable; do
   root="$work/apt-$channel"
   [ -d "$root/pool" ] || continue
   dist="$site/apt/dists/$channel"
-  archs=()
-  for arch in amd64 arm64 i386 armhf armel riscv64 loong64 ppc64el s390x; do
-    out="$dist/main/binary-$arch"
-    mkdir -p "$out"
-    (cd "$root" && apt-ftparchive --arch "$arch" packages pool) > "$out/Packages"
-    if [ -s "$out/Packages" ]; then
-      gzip -9kn "$out/Packages"
-      archs+=("$arch")
-    else
-      rm -r "$out"
-    fi
+  # apt-ftparchive --arch filters by a *_<arch>.deb file name, which Release
+  # asset names do not follow, so the stanzas are split by their Architecture
+  # field instead; `all` belongs in every architecture's list.
+  (cd "$root" && apt-ftparchive packages pool) > "$keys/Packages"
+  mapfile -t archs < <(python3 - "$keys/Packages" "$dist/main" <<'PY'
+import sys
+from pathlib import Path
+
+stanzas = [s for s in Path(sys.argv[1]).read_text().split("\n\n") if s.strip()]
+def arch(stanza):
+    return next(l.split(":", 1)[1].strip() for l in stanza.splitlines() if l.startswith("Architecture:"))
+archs = sorted({arch(s) for s in stanzas} - {"all"})
+for name in archs:
+    out = Path(sys.argv[2]) / f"binary-{name}"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "Packages").write_text("\n\n".join(s.strip() for s in stanzas if arch(s) in (name, "all")) + "\n")
+    print(name)
+PY
+  )
+  for arch in "${archs[@]}"; do
+    gzip -9kn "$dist/main/binary-$arch/Packages"
   done
   (cd "$dist" && apt-ftparchive \
     -o APT::FTPArchive::Release::Origin=xiongnemo \
