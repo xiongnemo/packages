@@ -1,7 +1,8 @@
 # packages
 
-apt, dnf and apk repositories for xiongnemo's tools, carrying **indices only**.
-Every package stays where its project published it, on GitHub Releases:
+apt, dnf and apk repositories for xiongnemo's tools, carrying **indices only**,
+at **https://xiongnemo-packages.anzupop.workers.dev**. Every package stays where
+its project published it, on GitHub Releases:
 
 | Format | How a package is found |
 |---|---|
@@ -13,6 +14,42 @@ The redirects are 302 on purpose: apk-tools' libfetch does not follow 308.
 Indices are rebuilt from the Releases on every run, and every hash in them is
 computed here from the downloaded file and checked against the digest GitHub
 reports, never taken from the publishing project.
+
+## Using it
+
+```sh
+# apt (Debian, Ubuntu)
+sudo curl -fsSLo /usr/share/keyrings/xiongnemo.gpg https://xiongnemo-packages.anzupop.workers.dev/keys/xiongnemo-packages.gpg
+echo "deb [signed-by=/usr/share/keyrings/xiongnemo.gpg] https://xiongnemo-packages.anzupop.workers.dev/apt nightly main" | sudo tee /etc/apt/sources.list.d/xiongnemo.list
+sudo apt update && sudo apt install saki nermius
+
+# dnf (Fedora, RHEL and derivatives)
+sudo curl -fsSLo /etc/yum.repos.d/xiongnemo-nightly.repo https://xiongnemo-packages.anzupop.workers.dev/rpm/xiongnemo-nightly.repo
+sudo dnf install saki nermius
+
+# apk (Alpine)
+wget -qO /etc/apk/keys/xiongnemo-packages.rsa.pub https://xiongnemo-packages.anzupop.workers.dev/keys/xiongnemo-packages.rsa.pub
+echo https://xiongnemo-packages.anzupop.workers.dev/apk/nightly >> /etc/apk/repositories
+apk update && apk add saki nermius
+```
+
+The apt and rpm metadata are signed with GPG key
+`A55073A0CA98126E1A693E79DD3919908757998C`; packages themselves are not signed,
+their hashes are pinned by the signed indices.
+
+## Serving
+
+A run's output is pushed as the single commit of the `site` branch. The Worker
+in [`worker/`](worker/index.js) serves that branch: it resolves the branch to a
+commit at most once a minute, reads every file at that commit (so `InRelease`
+and the `Packages` it lists always come from the same build), and applies
+`_redirects` the way Cloudflare Pages does. Publishing a site therefore needs
+no Cloudflare credentials, and `verify-live` installs from the public URL once
+it serves the new commit. The Worker only needs redeploying when its own code
+changes: `npx wrangler deploy` in `worker/`.
+
+The site is plain static files plus a Pages-style `_redirects`, so Cloudflare
+Pages or Netlify connected to the `site` branch could serve it unchanged.
 
 ## How a release gets here
 
@@ -33,9 +70,7 @@ fine-grained token with **Contents: read and write** on this repository.
 | `GPG_SIGNING_KEY` | secret | Armored private key; signs apt `InRelease`/`Release.gpg` and rpm `repomd.xml` |
 | `APK_SIGNING_KEY` | secret | PEM RSA private key; signs every `APKINDEX` |
 | `APK_SIGNING_KEY_NAME` | variable | Its file name, e.g. `xiongnemo-packages.rsa`; users install `<name>.pub` |
-| `SITE_URL` | variable | Public base URL, written into the `.repo` files and the landing page |
-| `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` | secrets | Deploy to Cloudflare Pages (`vars.CLOUDFLARE_PAGES_PROJECT`, default `xiongnemo-packages`) |
-| `NETLIFY_AUTH_TOKEN`, `NETLIFY_SITE_ID` | secrets | Or deploy to Netlify; both hosts read the same `_redirects` |
+| `SITE_URL` | variable | Public base URL, written into the `.repo` files and the landing page, and where `verify-live` installs from |
 
 Without the signing keys each run signs with throwaway keys, writes
 `TEST-ONLY`, and is not deployed: the signing path is still exercised, but a
