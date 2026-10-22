@@ -96,7 +96,7 @@ for channel in nightly stable; do
   [ -d "$root" ] || continue
   out="$site/rpm/$channel"
   mkdir -p "$out"
-  createrepo_c --quiet --general-compress-type=gz --baseurl https://github.com/ --outputdir "$out" "$root"
+  createrepo_c --quiet --no-database --general-compress-type=gz --baseurl https://github.com/ --outputdir "$out" "$root"
   sign_detached "$out/repodata/repomd.xml"
   cat > "$site/rpm/xiongnemo-$channel.repo" <<EOF
 [xiongnemo-$channel]

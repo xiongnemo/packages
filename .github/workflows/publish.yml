@@ -136,11 +136,33 @@ jobs:
     needs: test
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: site
           path: site
+
+      # The built site is also the tip of the `site` branch, replaced on every
+      # run: a host that deploys from git (Cloudflare Pages or Netlify connected
+      # to this repository) can serve that branch as-is, and anything can fetch
+      # a file of the live site from it.
+      - name: Publish the site branch
+        if: hashFiles('site/TEST-ONLY') == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cd site
+          git init -q -b site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Site built by ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site:site
+          echo "site branch: $(git rev-parse HEAD)"
+          rm -rf .git
 
       # Cloudflare Pages and Netlify read the same _redirects syntax, so either
       # host serves this site unchanged. Neither is configured until its secrets
