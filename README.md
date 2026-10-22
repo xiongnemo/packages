@@ -1,7 +1,7 @@
 # packages
 
 apt, dnf and apk repositories for xiongnemo's tools, carrying **indices only**,
-at **https://xiongnemo-packages.anzupop.workers.dev**. Every package stays where
+at **https://package.anzupop.com**. Every package stays where
 its project published it, on GitHub Releases:
 
 | Format | How a package is found |
@@ -19,17 +19,17 @@ reports, never taken from the publishing project.
 
 ```sh
 # apt (Debian, Ubuntu)
-sudo curl -fsSLo /usr/share/keyrings/xiongnemo.gpg https://xiongnemo-packages.anzupop.workers.dev/keys/xiongnemo-packages.gpg
-echo "deb [signed-by=/usr/share/keyrings/xiongnemo.gpg] https://xiongnemo-packages.anzupop.workers.dev/apt nightly main" | sudo tee /etc/apt/sources.list.d/xiongnemo.list
+sudo curl -fsSLo /usr/share/keyrings/xiongnemo.gpg https://package.anzupop.com/keys/xiongnemo-packages.gpg
+echo "deb [signed-by=/usr/share/keyrings/xiongnemo.gpg] https://package.anzupop.com/apt nightly main" | sudo tee /etc/apt/sources.list.d/xiongnemo.list
 sudo apt update && sudo apt install saki nermius
 
 # dnf (Fedora, RHEL and derivatives)
-sudo curl -fsSLo /etc/yum.repos.d/xiongnemo-nightly.repo https://xiongnemo-packages.anzupop.workers.dev/rpm/xiongnemo-nightly.repo
+sudo curl -fsSLo /etc/yum.repos.d/xiongnemo-nightly.repo https://package.anzupop.com/rpm/xiongnemo-nightly.repo
 sudo dnf install saki nermius
 
 # apk (Alpine)
-wget -qO /etc/apk/keys/xiongnemo-packages.rsa.pub https://xiongnemo-packages.anzupop.workers.dev/keys/xiongnemo-packages.rsa.pub
-echo https://xiongnemo-packages.anzupop.workers.dev/apk/nightly >> /etc/apk/repositories
+wget -qO /etc/apk/keys/xiongnemo-packages.rsa.pub https://package.anzupop.com/keys/xiongnemo-packages.rsa.pub
+echo https://package.anzupop.com/apk/nightly >> /etc/apk/repositories
 apk update && apk add saki nermius
 ```
 

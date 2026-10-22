@@ -1,7 +1,9 @@
-# The Worker that serves https://xiongnemo-packages.anzupop.workers.dev from the
+# The Worker that serves https://package.anzupop.com from the
 # `site` branch. It only needs redeploying when index.js changes; new sites go
 # live by being pushed to the branch.  `npx wrangler deploy` from this directory.
 name = "xiongnemo-packages"
 main = "index.js"
 compatibility_date = "2026-10-01"
 workers_dev = true
+
+routes = [{ pattern = "package.anzupop.com", custom_domain = true }]
