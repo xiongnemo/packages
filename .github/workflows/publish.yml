@@ -133,6 +133,56 @@ jobs:
           cat server.log
           exit $status
 
+  # Scoop is not indexed here: the bucket is its own repository, and its
+  # Excavator hashes the published archive itself. What this adds is the
+  # dispatch: a release announced here is announced to the bucket too, so a
+  # project only has to notify one place. It runs beside the index build, not
+  # after it, so a broken index never holds Scoop back.
+  #
+  # It waits until GitHub's releases *list* shows a Windows asset of the release,
+  # because the bucket's checkver reads that list, and on 2026-09-23 the list
+  # lagged a finished upload by hours: a dispatch sent before then packages
+  # nothing and still reports success.
+  scoop:
+    name: Tell the Scoop bucket
+    if: github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dispatch the bucket's Excavator
+        env:
+          GH_TOKEN: ${{ secrets.SCOOP_BUCKET_TOKEN }}
+          READ_TOKEN: ${{ github.token }}
+          REPO: ${{ github.event.client_payload.repository }}
+          TAG: ${{ github.event.client_payload.tag }}
+          BUCKET: ${{ vars.SCOOP_BUCKET || 'xiongnemo/windows-binaries-scoop-bucket' }}
+        run: |
+          set -euo pipefail
+          if ! jq -e --arg repo "$REPO" '.projects[] | select(.repo == $repo and .scoop == true)' projects.json >/dev/null; then
+            echo "${REPO} has no Scoop manifest; nothing to tell the bucket."
+            exit 0
+          fi
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::notice title=Scoop not notified::SCOOP_BUCKET_TOKEN is not set; the bucket's hourly sweep will pick ${TAG} up."
+            exit 0
+          fi
+          visible=false
+          for attempt in $(seq 1 20); do
+            if GH_TOKEN="$READ_TOKEN" gh api "repos/${REPO}/releases?per_page=10" \
+                --jq ".[] | select(.tag_name == \"${TAG}\") | .assets[].name" | grep -qi windows; then
+              visible=true
+              echo "the releases list shows ${TAG}'s Windows asset (check ${attempt})"
+              break
+            fi
+            sleep 15
+          done
+          if [ "$visible" != true ]; then
+            echo "::warning title=The Scoop bucket may lag this release::the releases list does not show a Windows asset of ${REPO} ${TAG} yet; dispatching anyway, and the hourly sweep is the backstop."
+          fi
+          gh workflow run excavator.yml --repo "$BUCKET"
+          echo "dispatched ${BUCKET} for ${REPO} ${TAG}"
+
   # Deploying is publishing the `site` branch: the Worker in worker/ serves
   # whatever commit that branch points at, re-resolving it every minute, so a
   # push is live within a minute and nothing here holds a Cloudflare token.

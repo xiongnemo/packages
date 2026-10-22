@@ -67,6 +67,22 @@ to keep. Prereleases are `nightly`, the rest `stable`.
 The dispatching repository needs a `PACKAGES_DISPATCH_TOKEN` secret: a
 fine-grained token with **Contents: read and write** on this repository.
 
+## Channels
+
+`stable` carries releases (a project's exact `vX.Y.Z` tag, published as a GitHub
+release); `nightly` carries prereleases only, versioned as a prerelease of the
+next release (`1.4.3~pre-1`, apk `1.4.3_pre-r1`). The channels are separate:
+subscribe to one or both. Which channel a release lands in is GitHub's
+prerelease flag, nothing else.
+
+## Scoop
+
+A dispatch for a project marked `"scoop": true` in `projects.json` is passed on
+to the [Scoop bucket](https://github.com/xiongnemo/windows-binaries-scoop-bucket)'s
+Excavator, once GitHub's releases list shows the release's Windows asset. This
+needs `SCOOP_BUCKET_TOKEN`: a fine-grained token with **Actions: read and write**
+on the bucket. Without it the bucket's hourly sweep is the only update.
+
 ## Configuration
 
 | Name | Kind | Purpose |
