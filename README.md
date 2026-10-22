@@ -25,16 +25,16 @@ reports, never taken from the publishing project.
 # apt (Debian, Ubuntu)
 sudo curl -fsSLo /usr/share/keyrings/nemo.gpg https://package.anzupop.com/keys/nemo-packages.gpg
 echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] https://package.anzupop.com/apt nightly main" | sudo tee /etc/apt/sources.list.d/nemo.list
-sudo apt update && sudo apt install saki nermius nemosh gp-socks
+sudo apt update && sudo apt install saki nermius nemosh
 
 # dnf (Fedora, RHEL and derivatives)
 sudo curl -fsSLo /etc/yum.repos.d/nemo-nightly.repo https://package.anzupop.com/rpm/nemo-nightly.repo
-sudo dnf install saki nermius nemosh gp-socks
+sudo dnf install saki nermius nemosh
 
 # apk (Alpine)
 wget -qO /etc/apk/keys/nemo-packages.rsa.pub https://package.anzupop.com/keys/nemo-packages.rsa.pub
 echo https://package.anzupop.com/apk/nightly >> /etc/apk/repositories
-apk update && apk add saki nermius nemosh gp-socks
+apk update && apk add saki nermius nemosh
 ```
 
 The apt and rpm metadata are signed with GPG key
@@ -83,7 +83,7 @@ artifact of the run.
 
 ## Testing
 
-`test` installs `saki`, `nermius`, `nemosh` and `gp-socks` from the built site on Debian, Ubuntu
+`test` installs `saki`, `nermius` and `nemosh` from the built site on Debian, Ubuntu
 22.04/24.04, Fedora, Rocky Linux 9 and Alpine 3.21/3.24 (apk-tools 2 and 3),
 amd64 and arm64. [`scripts/serve.py`](scripts/serve.py) serves the site and
 applies its `_redirects` the way Pages does, so each package really is fetched
