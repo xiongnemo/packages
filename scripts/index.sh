@@ -6,7 +6,7 @@
 # Signing keys come from the environment:
 #   GPG_SIGNING_KEY       armored private key; signs apt InRelease/Release.gpg and rpm repomd.xml
 #   APK_SIGNING_KEY       PEM RSA private key; signs every APKINDEX
-#   APK_SIGNING_KEY_NAME  its file name as users install it, e.g. xiongnemo-packages.rsa
+#   APK_SIGNING_KEY_NAME  its file name as users install it, e.g. nemo-packages.rsa
 # Without them the indices are signed with throwaway keys and SITE/TEST-ONLY is
 # written, which the deploy job refuses: the signing path is exercised on every
 # run, and a site nobody can verify is never published.
@@ -26,19 +26,19 @@ if [ -n "${GPG_SIGNING_KEY:-}" ]; then
   printf '%s\n' "$GPG_SIGNING_KEY" | gpg --batch --quiet --import
 else
   echo "::warning title=Test-only signing::GPG_SIGNING_KEY is not set; signing with a throwaway key. This site will not be deployed."
-  gpg --batch --quiet --passphrase '' --quick-gen-key "xiongnemo packages (TEST ONLY) <packages@example.invalid>" rsa4096 sign 2d
+  gpg --batch --quiet --passphrase '' --quick-gen-key "Nemo's Packages (TEST ONLY) <packages@example.invalid>" rsa4096 sign 2d
   echo "Signed with throwaway keys; not for deployment." > "$site/TEST-ONLY"
 fi
 fpr=$(gpg --batch --list-secret-keys --with-colons | awk -F: '/^fpr/ { print $10; exit }')
-gpg --batch --export "$fpr" > "$site/keys/xiongnemo-packages.gpg"
-gpg --batch --armor --export "$fpr" > "$site/keys/xiongnemo-packages.asc"
+gpg --batch --export "$fpr" > "$site/keys/nemo-packages.gpg"
+gpg --batch --armor --export "$fpr" > "$site/keys/nemo-packages.asc"
 
 mkdir -p "$keys/apk"
 if [ -n "${APK_SIGNING_KEY:-}" ]; then
   apk_key=${APK_SIGNING_KEY_NAME:?APK_SIGNING_KEY_NAME must name the key}
   printf '%s\n' "$APK_SIGNING_KEY" > "$keys/apk/$apk_key"
 else
-  apk_key=xiongnemo-packages-test.rsa
+  apk_key=nemo-packages-test.rsa
   openssl genrsa -out "$keys/apk/$apk_key" 4096 2>/dev/null
 fi
 openssl rsa -in "$keys/apk/$apk_key" -pubout -out "$keys/apk/$apk_key.pub" 2>/dev/null
@@ -75,13 +75,13 @@ PY
     gzip -9kn "$dist/main/binary-$arch/Packages"
   done
   (cd "$dist" && apt-ftparchive \
-    -o APT::FTPArchive::Release::Origin=xiongnemo \
-    -o APT::FTPArchive::Release::Label=xiongnemo \
+    -o APT::FTPArchive::Release::Origin=nemo \
+    -o APT::FTPArchive::Release::Label=nemo \
     -o APT::FTPArchive::Release::Suite="$channel" \
     -o APT::FTPArchive::Release::Codename="$channel" \
     -o APT::FTPArchive::Release::Architectures="${archs[*]}" \
     -o APT::FTPArchive::Release::Components=main \
-    -o APT::FTPArchive::Release::Description="xiongnemo $channel packages" \
+    -o APT::FTPArchive::Release::Description="Nemo's Packages ($channel)" \
     release .) > "$keys/Release"
   mv "$keys/Release" "$dist/Release"
   gpg --batch --yes --local-user "$fpr" --clearsign --output "$dist/InRelease" "$dist/Release"
@@ -98,14 +98,14 @@ for channel in nightly stable; do
   mkdir -p "$out"
   createrepo_c --quiet --no-database --general-compress-type=gz --baseurl https://github.com/ --outputdir "$out" "$root"
   sign_detached "$out/repodata/repomd.xml"
-  cat > "$site/rpm/xiongnemo-$channel.repo" <<EOF
-[xiongnemo-$channel]
-name=xiongnemo $channel
+  cat > "$site/rpm/nemo-$channel.repo" <<EOF
+[nemo-$channel]
+name=Nemo's Packages ($channel)
 baseurl=$site_url/rpm/$channel
 enabled=1
 gpgcheck=0
 repo_gpgcheck=1
-gpgkey=$site_url/keys/xiongnemo-packages.asc
+gpgkey=$site_url/keys/nemo-packages.asc
 EOF
   echo "rpm $channel: $(find "$root" -name '*.rpm' | wc -l) packages"
 done
@@ -123,7 +123,7 @@ for channel in nightly stable; do
       for dir in /repo/*/; do
         arch=$(basename "$dir")
         mkdir -p "/out/$arch"
-        apk index -q --allow-untrusted -d "xiongnemo $CHANNEL" -o "/out/$arch/APKINDEX.tar.gz" "$dir"*.apk
+        apk index -q --allow-untrusted -d "Nemo's Packages ($CHANNEL)" -o "/out/$arch/APKINDEX.tar.gz" "$dir"*.apk
         abuild-sign -q -k "/keys/$KEY" -p "$KEY.pub" "/out/$arch/APKINDEX.tar.gz"
       done
       chown -R "$IDS" /out
@@ -139,29 +139,33 @@ from pathlib import Path
 
 site, url, apk_key = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
 manifest = json.loads((site / "manifest.json").read_text())
+esc = html.escape
 rows = "\n".join(
-    f"<tr><td>{html.escape(p['channel'])}</td><td>{html.escape(p['format'])}</td>"
-    f"<td>{html.escape(p['repo'])}</td><td>{html.escape(p['tag'])}</td>"
-    f"<td><a href=\"{html.escape(p['url'])}\">{html.escape(p['asset'])}</a></td></tr>"
+    f"<tr><td>{esc(p['channel'])}</td><td>{esc(p['format'])}</td>"
+    f"<td><a href=\"https://github.com/{esc(p['repo'])}\">{esc(p['repo'].split('/')[1])}</a></td>"
+    f"<td>{esc(p['tag'])}</td><td><a href=\"{esc(p['url'])}\">{esc(p['asset'])}</a></td></tr>"
     for p in manifest
 )
 page = f"""<!doctype html>
 <meta charset="utf-8">
-<title>xiongnemo packages</title>
+<title>Nemo's Packages</title>
 <style>body{{font:15px/1.5 system-ui,sans-serif;max-width:60rem;margin:2rem auto;padding:0 1rem}}
 pre{{background:#f4f4f4;padding:.75rem;overflow-x:auto}}td{{padding:.1rem .6rem;font-size:13px}}</style>
-<h1>xiongnemo packages</h1>
-<p>Indices only: every package is fetched from its GitHub Release.</p>
+<h1>Nemo's Packages</h1>
+<p>Indices only: every package is fetched from its GitHub Release.
+On Windows, use the <a href="https://github.com/xiongnemo/windows-binaries-scoop-bucket">Scoop bucket</a> instead.</p>
 <h2>apt</h2>
-<pre>sudo curl -fsSLo /usr/share/keyrings/xiongnemo.gpg {url}/keys/xiongnemo-packages.gpg
-echo "deb [signed-by=/usr/share/keyrings/xiongnemo.gpg] {url}/apt nightly main" | sudo tee /etc/apt/sources.list.d/xiongnemo.list
+<pre>sudo curl -fsSLo /usr/share/keyrings/nemo.gpg {url}/keys/nemo-packages.gpg
+echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] {url}/apt nightly main" | sudo tee /etc/apt/sources.list.d/nemo.list
 sudo apt update</pre>
 <h2>dnf</h2>
-<pre>sudo curl -fsSLo /etc/yum.repos.d/xiongnemo-nightly.repo {url}/rpm/xiongnemo-nightly.repo</pre>
+<pre>sudo curl -fsSLo /etc/yum.repos.d/nemo-nightly.repo {url}/rpm/nemo-nightly.repo</pre>
 <h2>apk</h2>
 <pre>wget -qO /etc/apk/keys/{apk_key} {url}/keys/{apk_key}
 echo "{url}/apk/nightly" >> /etc/apk/repositories
 apk update</pre>
+<h2>Scoop (Windows)</h2>
+<pre>scoop bucket add nemo https://github.com/xiongnemo/windows-binaries-scoop-bucket</pre>
 <h2>Packages</h2>
 <table>{rows}</table>
 """
