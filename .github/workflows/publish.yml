@@ -131,6 +131,9 @@ jobs:
           cat server.log
           exit $status
 
+  # Deploying is publishing the `site` branch: the Worker in worker/ serves
+  # whatever commit that branch points at, re-resolving it every minute, so a
+  # push is live within a minute and nothing here holds a Cloudflare token.
   deploy:
     name: Deploy
     needs: test
@@ -138,22 +141,24 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      commit: ${{ steps.publish.outputs.commit }}
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: site
           path: site
 
-      # The built site is also the tip of the `site` branch, replaced on every
-      # run: a host that deploys from git (Cloudflare Pages or Netlify connected
-      # to this repository) can serve that branch as-is, and anything can fetch
-      # a file of the live site from it.
       - name: Publish the site branch
-        if: hashFiles('site/TEST-ONLY') == ''
+        id: publish
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          if [ -f site/TEST-ONLY ]; then
+            echo "::notice title=Not deployed::the site was signed with throwaway keys; set GPG_SIGNING_KEY, APK_SIGNING_KEY and APK_SIGNING_KEY_NAME."
+            exit 0
+          fi
           cd site
           git init -q -b site
           git config user.name "github-actions[bot]"
@@ -161,30 +166,57 @@ jobs:
           git add -A
           git commit -q -m "Site built by ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site:site
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           echo "site branch: $(git rev-parse HEAD)"
-          rm -rf .git
 
-      # Cloudflare Pages and Netlify read the same _redirects syntax, so either
-      # host serves this site unchanged. Neither is configured until its secrets
-      # exist, and a site signed with throwaway keys is never deployed.
-      - name: Deploy to Cloudflare Pages or Netlify
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'xiongnemo-packages' }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+  # Installs from the public URL once it serves the commit just published --
+  # the check that the Worker, the signatures and GitHub's redirects work
+  # together, not just a local stand-in for them.
+  verify-live:
+    name: Live install on ${{ matrix.image }}
+    needs: deploy
+    if: needs.deploy.outputs.commit != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ["debian:stable", "fedora:latest", "alpine:3.24"]
+    env:
+      BASE: ${{ vars.SITE_URL }}
+      COMMIT: ${{ needs.deploy.outputs.commit }}
+    steps:
+      - name: Wait for the site to serve this commit
         run: |
           set -euo pipefail
-          if [ -f site/TEST-ONLY ]; then
-            echo "::notice title=Not deployed::the site was signed with throwaway keys; set GPG_SIGNING_KEY, APK_SIGNING_KEY and APK_SIGNING_KEY_NAME."
-            exit 0
-          fi
-          rm -f site/TEST-ONLY
-          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ] && [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
-            npx --yes wrangler@4 pages deploy site --project-name "$CLOUDFLARE_PAGES_PROJECT" --branch main --commit-dirty=true
-          elif [ -n "${NETLIFY_AUTH_TOKEN:-}" ] && [ -n "${NETLIFY_SITE_ID:-}" ]; then
-            npx --yes netlify-cli@latest deploy --prod --dir site --site "$NETLIFY_SITE_ID" --no-build
-          else
-            echo "::notice title=Not deployed::no Cloudflare or Netlify credentials; the site is the 'site' artifact of this run."
-          fi
+          for attempt in $(seq 1 30); do
+            served=$(curl -fsSI "$BASE/" | tr -d '\r' | awk -F': ' 'tolower($1) == "x-site-commit" { print $2 }')
+            [ "$served" = "$COMMIT" ] && { echo "serving $COMMIT (check $attempt)"; exit 0; }
+            sleep 10
+          done
+          echo "::error::$BASE still serves ${served:-nothing}, not $COMMIT"
+          exit 1
+
+      - name: Install saki and nermius from the live site
+        run: |
+          set -euo pipefail
+          docker run --rm -e BASE "${{ matrix.image }}" sh -euc '
+            if command -v apt-get >/dev/null; then
+              export DEBIAN_FRONTEND=noninteractive
+              apt-get update -qq && apt-get install -y -qq curl ca-certificates >/dev/null
+              curl -fsSLo /usr/share/keyrings/xiongnemo.gpg "$BASE/keys/xiongnemo-packages.gpg"
+              echo "deb [signed-by=/usr/share/keyrings/xiongnemo.gpg] $BASE/apt nightly main" > /etc/apt/sources.list.d/xiongnemo.list
+              apt-get update -qq
+              apt-get install -y saki nermius
+            elif command -v dnf >/dev/null; then
+              curl -fsSLo /etc/yum.repos.d/xiongnemo-nightly.repo "$BASE/rpm/xiongnemo-nightly.repo"
+              dnf install -y saki nermius
+            else
+              key=$(wget -qO- "$BASE/keys/apk-key-name")
+              wget -qO "/etc/apk/keys/$key" "$BASE/keys/$key"
+              echo "$BASE/apk/nightly" >> /etc/apk/repositories
+              apk update
+              apk add saki nermius
+            fi
+            saki --version
+            nermius version
+          '
