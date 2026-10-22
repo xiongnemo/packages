@@ -113,20 +113,21 @@ jobs:
                 curl -fsSLo /usr/share/keyrings/nemo.gpg "$BASE/keys/nemo-packages.gpg"
                 echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] $BASE/apt nightly main" > /etc/apt/sources.list.d/nemo.list
                 apt-get update -qq
-                apt-get install -y saki nermius nemosh
+                apt-get install -y saki nermius nemosh gp-socks
               elif command -v dnf >/dev/null; then
                 curl -fsSLo /etc/yum.repos.d/nemo-nightly.repo "$BASE/rpm/nemo-nightly.repo"
                 sed -i "s|^baseurl=.*|baseurl=$BASE/rpm/nightly|; s|^gpgkey=.*|gpgkey=$BASE/keys/nemo-packages.asc|" /etc/yum.repos.d/nemo-nightly.repo
-                dnf install -y saki nermius nemosh
+                dnf install -y saki nermius nemosh gp-socks
               else
                 wget -qO "/etc/apk/keys/$APK_KEY" "$BASE/keys/$APK_KEY"
                 echo "$BASE/apk/nightly" >> /etc/apk/repositories
                 apk update
-                apk add saki nermius nemosh
+                apk add saki nermius nemosh gp-socks
               fi
               saki --version
               nermius version
               nemosh --version
+              gp-socks --help 2>&1 | grep -q "Usage of gp-socks"
             ' || status=$?
           echo "== requests"
           cat server.log
@@ -207,18 +208,19 @@ jobs:
               curl -fsSLo /usr/share/keyrings/nemo.gpg "$BASE/keys/nemo-packages.gpg"
               echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] $BASE/apt nightly main" > /etc/apt/sources.list.d/nemo.list
               apt-get update -qq
-              apt-get install -y saki nermius nemosh
+              apt-get install -y saki nermius nemosh gp-socks
             elif command -v dnf >/dev/null; then
               curl -fsSLo /etc/yum.repos.d/nemo-nightly.repo "$BASE/rpm/nemo-nightly.repo"
-              dnf install -y saki nermius nemosh
+              dnf install -y saki nermius nemosh gp-socks
             else
               key=$(wget -qO- "$BASE/keys/apk-key-name")
               wget -qO "/etc/apk/keys/$key" "$BASE/keys/$key"
               echo "$BASE/apk/nightly" >> /etc/apk/repositories
               apk update
-              apk add saki nermius nemosh
+              apk add saki nermius nemosh gp-socks
             fi
             saki --version
             nermius version
             nemosh --version
+            gp-socks --help 2>&1 | grep -q "Usage of gp-socks"
           '
