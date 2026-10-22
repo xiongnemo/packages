@@ -140,34 +140,56 @@ from pathlib import Path
 site, url, apk_key = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
 manifest = json.loads((site / "manifest.json").read_text())
 esc = html.escape
-rows = "\n".join(
-    f"<tr><td>{esc(p['channel'])}</td><td>{esc(p['format'])}</td>"
-    f"<td><a href=\"https://github.com/{esc(p['repo'])}\">{esc(p['repo'].split('/')[1])}</a></td>"
-    f"<td>{esc(p['tag'])}</td><td><a href=\"{esc(p['url'])}\">{esc(p['asset'])}</a></td></tr>"
-    for p in manifest
-)
+about = {
+    "stable": "Releases: an exact version tag, published as a release.",
+    "nightly": "Prereleases: every push to a project's main branch, versioned as a "
+               "prerelease of the next release (1.4.3~pre-1, apk 1.4.3_pre-r1).",
+}
+
+
+def setup(channel):
+    return f"""<h3>apt</h3>
+<pre>sudo curl -fsSLo /usr/share/keyrings/nemo.gpg {url}/keys/nemo-packages.gpg
+echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] {url}/apt {channel} main" | sudo tee /etc/apt/sources.list.d/nemo-{channel}.list
+sudo apt update</pre>
+<h3>dnf</h3>
+<pre>sudo curl -fsSLo /etc/yum.repos.d/nemo-{channel}.repo {url}/rpm/nemo-{channel}.repo</pre>
+<h3>apk</h3>
+<pre>wget -qO /etc/apk/keys/{apk_key} {url}/keys/{apk_key}
+echo "{url}/apk/{channel}" >> /etc/apk/repositories
+apk update</pre>"""
+
+
+def table(channel):
+    rows = "\n".join(
+        f"<tr><td>{esc(p['format'])}</td>"
+        f"<td><a href=\"https://github.com/{esc(p['repo'])}\">{esc(p['repo'].split('/')[1])}</a></td>"
+        f"<td>{esc(p['tag'])}</td><td><a href=\"{esc(p['url'])}\">{esc(p['asset'])}</a></td></tr>"
+        for p in manifest if p["channel"] == channel
+    )
+    return f"<table>{rows}</table>"
+
+
+sections = []
+for channel in ("stable", "nightly"):
+    body = f"<p>{esc(about[channel])}</p>"
+    if any(p["channel"] == channel for p in manifest):
+        body += setup(channel) + "<h3>Packages</h3>" + table(channel)
+    else:
+        body += "<p><em>Nothing published on this channel yet.</em></p>"
+    sections.append(f"<h2>{channel}</h2>\n{body}")
+
 page = f"""<!doctype html>
 <meta charset="utf-8">
 <title>Nemo's Packages</title>
 <style>body{{font:15px/1.5 system-ui,sans-serif;max-width:60rem;margin:2rem auto;padding:0 1rem}}
 pre{{background:#f4f4f4;padding:.75rem;overflow-x:auto}}td{{padding:.1rem .6rem;font-size:13px}}</style>
 <h1>Nemo's Packages</h1>
-<p>Indices only: every package is fetched from its GitHub Release.
-On Windows, use the <a href="https://github.com/xiongnemo/windows-binaries-scoop-bucket">Scoop bucket</a> instead.</p>
-<h2>apt</h2>
-<pre>sudo curl -fsSLo /usr/share/keyrings/nemo.gpg {url}/keys/nemo-packages.gpg
-echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] {url}/apt nightly main" | sudo tee /etc/apt/sources.list.d/nemo.list
-sudo apt update</pre>
-<h2>dnf</h2>
-<pre>sudo curl -fsSLo /etc/yum.repos.d/nemo-nightly.repo {url}/rpm/nemo-nightly.repo</pre>
-<h2>apk</h2>
-<pre>wget -qO /etc/apk/keys/{apk_key} {url}/keys/{apk_key}
-echo "{url}/apk/nightly" >> /etc/apk/repositories
-apk update</pre>
-<h2>Scoop (Windows)</h2>
+<p>Indices only: every package is fetched from its GitHub Release. Two channels,
+each on its own: subscribe to <code>stable</code>, <code>nightly</code> or both.
+On Windows, use the <a href="https://github.com/xiongnemo/windows-binaries-scoop-bucket">Scoop bucket</a> instead:</p>
 <pre>scoop bucket add nemo https://github.com/xiongnemo/windows-binaries-scoop-bucket</pre>
-<h2>Packages</h2>
-<table>{rows}</table>
+{chr(10).join(sections)}
 """
 (site / "index.html").write_text(page)
 PY
