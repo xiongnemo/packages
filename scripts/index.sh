@@ -117,13 +117,13 @@ for channel in nightly stable; do
   [ -d "$root" ] || continue
   out="$site/apk/$channel"
   mkdir -p "$out"
-  docker run --rm -e CHANNEL="$channel" -e KEY="$apk_key" -e IDS="$(id -u):$(id -g)" \
+  docker run --rm -e DESCRIPTION="Nemo's Packages ($channel)" -e KEY="$apk_key" -e IDS="$(id -u):$(id -g)" \
     -v "$root:/repo:ro" -v "$keys/apk:/keys:ro" -v "$out:/out" alpine:3.21 sh -euc '
       apk add -q abuild
       for dir in /repo/*/; do
         arch=$(basename "$dir")
         mkdir -p "/out/$arch"
-        apk index -q --allow-untrusted -d "Nemo's Packages ($CHANNEL)" -o "/out/$arch/APKINDEX.tar.gz" "$dir"*.apk
+        apk index -q --allow-untrusted -d "$DESCRIPTION" -o "/out/$arch/APKINDEX.tar.gz" "$dir"*.apk
         abuild-sign -q -k "/keys/$KEY" -p "$KEY.pub" "/out/$arch/APKINDEX.tar.gz"
       done
       chown -R "$IDS" /out
