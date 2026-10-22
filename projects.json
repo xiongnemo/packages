@@ -2,6 +2,7 @@
   "projects": [
     { "repo": "xiongnemo/Saki", "keep": 3 },
     { "repo": "xiongnemo/nermius", "keep": 3 },
-    { "repo": "xiongnemo/nemosh", "keep": 3 }
+    { "repo": "xiongnemo/nemosh", "keep": 3 },
+    { "repo": "xiongnemo/globalprotect-socks5", "keep": 3 }
   ]
 }
