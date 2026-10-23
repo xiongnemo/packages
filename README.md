@@ -1,6 +1,6 @@
 # packages
 
-apt, dnf and apk repositories for Nemo's tools, carrying **indices only**,
+apt, dnf, apk and MacPorts repositories for Nemo's tools, carrying **indices only**,
 at **https://package.anzupop.com**. Every package stays where
 its project published it, on GitHub Releases:
 
@@ -9,6 +9,7 @@ its project published it, on GitHub Releases:
 | apt | `Filename: pool/<owner>/<repo>/<tag>/<asset>`; `_redirects` sends `pool/*` to the Release asset with a 302 |
 | dnf | `primary.xml` carries `xml:base="https://github.com/"`; dnf fetches the asset directly, no redirect needed |
 | apk | apk names files `<name>-<version>.apk`; `_redirects` has one 302 per package |
+| MacPorts | a signed `ports.tar` of binary Portfiles; each fetches its darwin build from `master_sites` on GitHub Releases |
 
 On Windows, the same tools come from the
 [Scoop bucket](https://github.com/xiongnemo/windows-binaries-scoop-bucket):
@@ -36,6 +37,20 @@ wget -qO /etc/apk/keys/nemo-packages.rsa.pub https://package.anzupop.com/keys/ne
 echo https://package.anzupop.com/apk/nightly >> /etc/apk/repositories
 apk update && apk add saki nermius nemosh gp-socks
 ```
+
+```sh
+# MacPorts (macOS)
+sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pem https://package.anzupop.com/keys/nemo-macports.pem
+echo /opt/local/share/macports/nemo-macports.pem | sudo tee -a /opt/local/etc/macports/pubkeys.conf
+# add above the [default] line of /opt/local/etc/macports/sources.conf:
+#   https://package.anzupop.com/macports/nightly/ports.tar
+sudo port sync && sudo port install saki nermius nemosh gp-socks
+```
+
+A MacPorts tree holds one version per port, so each channel's tree has the
+newest release of each project; the ports are named as the commands are. List
+one channel in `sources.conf`: with both, MacPorts takes each port from
+whichever line comes first.
 
 The apt and rpm metadata are signed with GPG key
 `A55073A0CA98126E1A693E79DD3919908757998C`; packages themselves are not signed,
@@ -90,6 +105,7 @@ on the bucket. Without it the bucket's hourly sweep is the only update.
 | `GPG_SIGNING_KEY` | secret | Armored private key; signs apt `InRelease`/`Release.gpg` and rpm `repomd.xml` |
 | `APK_SIGNING_KEY` | secret | PEM RSA private key; signs every `APKINDEX` |
 | `APK_SIGNING_KEY_NAME` | variable | Its file name, e.g. `nemo-packages.rsa`; users install `<name>.pub` |
+| `MACPORTS_SIGNING_KEY` | secret | PEM RSA private key; signs each `ports.tar` as `ports.tar.rmd160` |
 | `SITE_URL` | variable | Public base URL, written into the `.repo` files and the landing page, and where `verify-live` installs from |
 
 Without the signing keys each run signs with throwaway keys, writes
@@ -103,4 +119,6 @@ artifact of the run.
 22.04/24.04, Fedora, Rocky Linux 9 and Alpine 3.21/3.24 (apk-tools 2 and 3),
 amd64 and arm64. [`scripts/serve.py`](scripts/serve.py) serves the site and
 applies its `_redirects` the way Pages does, so each package really is fetched
-from GitHub through a 302.
+from GitHub through a 302. `test-macports` installs MacPorts on an arm64 and an
+Intel Mac runner, adds the site exactly as above and installs all four ports;
+`live-macports` does the same against the public URL.
