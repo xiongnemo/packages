@@ -20,7 +20,11 @@ echo "$prefix/share/macports/nemo-macports.pub" | sudo tee -a "$conf/pubkeys.con
 sudo mv sources.conf.new "$conf/sources.conf"
 grep -v '^#' "$conf/sources.conf" | grep .
 
-sudo port -N sync
+# -v is a workaround, not a preference: MacPorts 2.12.7 sets the tar flag it
+# extracts an http(s) tarball source with only when verbose or when progress
+# output is on, which needs a terminal, so a sync without one fails with
+# `can't read "verboseflag"` (fixed on macports-base master).
+sudo port -N -v sync
 port info --version --platforms saki nermius nemosh gp-socks
 sudo port -N install saki nermius nemosh gp-socks
 port installed saki nermius nemosh gp-socks
