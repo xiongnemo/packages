@@ -27,6 +27,9 @@ jobs:
   build:
     name: Collect, index and sign
     runs-on: ubuntu-latest
+    # A job left to GitHub's six-hour default once hung that long in silence on
+    # 2026-10-22, and the concurrency group held every later run behind it.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -58,8 +61,9 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq apt-utils createrepo-c >/dev/null
+          apt_opts=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o DPkg::Lock::Timeout=120)
+          sudo apt-get "${apt_opts[@]}" update -q
+          sudo DEBIAN_FRONTEND=noninteractive apt-get "${apt_opts[@]}" install -y -q apt-utils createrepo-c
           bash scripts/index.sh work site
           find site -type f | sort
 
@@ -75,6 +79,7 @@ jobs:
   test:
     name: Install on ${{ matrix.image }} (${{ matrix.arch }})
     needs: build
+    timeout-minutes: 20
     runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
@@ -146,6 +151,7 @@ jobs:
   scoop:
     name: Tell the Scoop bucket
     if: github.event_name == 'repository_dispatch'
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -189,6 +195,7 @@ jobs:
   deploy:
     name: Deploy
     needs: test
+    timeout-minutes: 10
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
@@ -227,6 +234,7 @@ jobs:
   verify-live:
     name: Live install on ${{ matrix.image }}
     needs: deploy
+    timeout-minutes: 15
     if: needs.deploy.outputs.commit != ''
     runs-on: ubuntu-latest
     strategy:
@@ -241,7 +249,7 @@ jobs:
         run: |
           set -euo pipefail
           for attempt in $(seq 1 30); do
-            served=$(curl -fsSI "$BASE/" | tr -d '\r' | awk -F': ' 'tolower($1) == "x-site-commit" { print $2 }')
+            served=$(curl -fsSI --max-time 20 "$BASE/" 2>/dev/null | tr -d '\r' | awk -F': ' 'tolower($1) == "x-site-commit" { print $2 }' || true)
             [ "$served" = "$COMMIT" ] && { echo "serving $COMMIT (check $attempt)"; exit 0; }
             sleep 10
           done

@@ -19,6 +19,7 @@ keys=$(mktemp -d)
 mkdir -p "$site/keys"
 
 # -- keys ---------------------------------------------------------------------
+echo "== keys"
 
 export GNUPGHOME="$keys/gnupg"
 mkdir -m 700 "$GNUPGHOME"
@@ -47,6 +48,7 @@ cp "$keys/apk/$apk_key.pub" "$site/keys/"
 sign_detached() { gpg --batch --yes --local-user "$fpr" --armor --detach-sign --output "$1.asc" "$1"; }
 
 # -- apt ----------------------------------------------------------------------
+echo "== apt"
 
 for channel in nightly stable; do
   root="$work/apt-$channel"
@@ -90,6 +92,7 @@ PY
 done
 
 # -- rpm ----------------------------------------------------------------------
+echo "== rpm"
 
 for channel in nightly stable; do
   root="$work/rpm-$channel"
@@ -111,6 +114,7 @@ EOF
 done
 
 # -- apk ----------------------------------------------------------------------
+echo "== apk"
 
 for channel in nightly stable; do
   root="$work/apk-$channel"
@@ -132,6 +136,7 @@ for channel in nightly stable; do
 done
 
 # -- landing page -------------------------------------------------------------
+echo "== landing page"
 
 python3 - "$site" "$site_url" "$apk_key.pub" <<'PY'
 import html, json, sys
