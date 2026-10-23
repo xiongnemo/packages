@@ -65,7 +65,7 @@ jobs:
           set -euo pipefail
           apt_opts=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o DPkg::Lock::Timeout=120)
           sudo apt-get "${apt_opts[@]}" update -q
-          sudo DEBIAN_FRONTEND=noninteractive apt-get "${apt_opts[@]}" install -y -q apt-utils createrepo-c
+          sudo DEBIAN_FRONTEND=noninteractive apt-get "${apt_opts[@]}" install -y -q apt-utils createrepo-c signify-openbsd
           bash scripts/index.sh work site
           find site -type f | sort
 

@@ -7,7 +7,8 @@
 #   GPG_SIGNING_KEY       armored private key; signs apt InRelease/Release.gpg and rpm repomd.xml
 #   APK_SIGNING_KEY       PEM RSA private key; signs every APKINDEX
 #   APK_SIGNING_KEY_NAME  its file name as users install it, e.g. nemo-packages.rsa
-#   MACPORTS_SIGNING_KEY  PEM RSA private key; signs every MacPorts ports.tar
+#   MACPORTS_SIGNING_KEY  signify secret key; signs every MacPorts ports.tar. Its
+#                         public half is keys/nemo-macports.pub in this repository.
 # Without them the indices are signed with throwaway keys and SITE/TEST-ONLY is
 # written, which the deploy job refuses: the signing path is exercised on every
 # run, and a site nobody can verify is never published.
@@ -46,12 +47,16 @@ fi
 openssl rsa -in "$keys/apk/$apk_key" -pubout -out "$keys/apk/$apk_key.pub" 2>/dev/null
 cp "$keys/apk/$apk_key.pub" "$site/keys/"
 
+# MacPorts verifies an http(s) tarball source with signify only: it fetches
+# <url>.sig and checks it against the .pub keys in pubkeys.conf. signify cannot
+# derive a public key from a secret one, so the public half lives in this
+# repository, and every signature is verified against it before publishing.
 if [ -n "${MACPORTS_SIGNING_KEY:-}" ]; then
-  printf '%s\n' "$MACPORTS_SIGNING_KEY" > "$keys/macports.pem"
+  printf '%s\n' "$MACPORTS_SIGNING_KEY" > "$keys/macports.sec"
+  cp "$(dirname "$0")/../keys/nemo-macports.pub" "$site/keys/nemo-macports.pub"
 else
-  openssl genrsa -out "$keys/macports.pem" 4096 2>/dev/null
+  signify-openbsd -G -n -c "TEST ONLY" -p "$site/keys/nemo-macports.pub" -s "$keys/macports.sec"
 fi
-openssl rsa -in "$keys/macports.pem" -pubout -out "$site/keys/nemo-macports.pem" 2>/dev/null
 
 sign_detached() { gpg --batch --yes --local-user "$fpr" --armor --detach-sign --output "$1.asc" "$1"; }
 
@@ -146,17 +151,16 @@ done
 # -- macports -------------------------------------------------------------------
 echo "== macports"
 
-# MacPorts verifies a tarball source by its .rmd160 signature only when the URL
-# ends in .tar, so the tree is an uncompressed tar, with `ports/` at the top as
-# MacPorts' own tarball has. It is built reproducibly: same tree, same bytes.
+# The tree is an uncompressed tar with `ports/` at the top, as MacPorts' own
+# tarball has, built reproducibly: same tree, same bytes.
 for channel in nightly stable; do
   root="$work/macports-$channel"
   [ -d "$root/ports" ] || continue
   out="$site/macports/$channel"
   mkdir -p "$out"
   tar --sort=name --owner=0 --group=0 --numeric-owner --mtime='@0' --format=ustar -C "$root" -cf "$out/ports.tar" ports
-  openssl dgst -ripemd160 -sign "$keys/macports.pem" -out "$out/ports.tar.rmd160" "$out/ports.tar"
-  openssl dgst -ripemd160 -verify "$site/keys/nemo-macports.pem" -signature "$out/ports.tar.rmd160" "$out/ports.tar"
+  signify-openbsd -S -s "$keys/macports.sec" -m "$out/ports.tar" -x "$out/ports.tar.sig"
+  signify-openbsd -V -p "$site/keys/nemo-macports.pub" -x "$out/ports.tar.sig" -m "$out/ports.tar"
   echo "macports $channel: $(find "$root/ports" -name Portfile | wc -l) ports"
 done
 
@@ -178,16 +182,23 @@ about = {
 
 
 def setup(channel):
-    return f"""<h3>apt</h3>
+    """The setup steps for each format that has something on this channel."""
+    formats = {p["format"] for p in manifest if p["channel"] == channel}
+    blocks = []
+    if "deb" in formats:
+        blocks.append(f"""<h3>apt</h3>
 <pre>sudo curl -fsSLo /usr/share/keyrings/nemo.gpg {url}/keys/nemo-packages.gpg
 echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] {url}/apt {channel} main" | sudo tee /etc/apt/sources.list.d/nemo-{channel}.list
-sudo apt update</pre>
-<h3>dnf</h3>
-<pre>sudo curl -fsSLo /etc/yum.repos.d/nemo-{channel}.repo {url}/rpm/nemo-{channel}.repo</pre>
-<h3>apk</h3>
+sudo apt update</pre>""")
+    if "rpm" in formats:
+        blocks.append(f"""<h3>dnf</h3>
+<pre>sudo curl -fsSLo /etc/yum.repos.d/nemo-{channel}.repo {url}/rpm/nemo-{channel}.repo</pre>""")
+    if "apk" in formats:
+        blocks.append(f"""<h3>apk</h3>
 <pre>wget -qO /etc/apk/keys/{apk_key} {url}/keys/{apk_key}
 echo "{url}/apk/{channel}" >> /etc/apk/repositories
-apk update</pre>""" + macports(channel)
+apk update</pre>""")
+    return "\n".join(blocks) + macports(channel)
 
 
 def macports(channel):
@@ -195,8 +206,8 @@ def macports(channel):
         return ""
     return f"""
 <h3>MacPorts</h3>
-<pre>sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pem {url}/keys/nemo-macports.pem
-echo /opt/local/share/macports/nemo-macports.pem | sudo tee -a /opt/local/etc/macports/pubkeys.conf
+<pre>sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pub {url}/keys/nemo-macports.pub
+echo /opt/local/share/macports/nemo-macports.pub | sudo tee -a /opt/local/etc/macports/pubkeys.conf
 # then add this line above the [default] line of /opt/local/etc/macports/sources.conf:
 {url}/macports/{channel}/ports.tar
 sudo port sync</pre>"""

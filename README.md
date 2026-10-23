@@ -9,7 +9,7 @@ its project published it, on GitHub Releases:
 | apt | `Filename: pool/<owner>/<repo>/<tag>/<asset>`; `_redirects` sends `pool/*` to the Release asset with a 302 |
 | dnf | `primary.xml` carries `xml:base="https://github.com/"`; dnf fetches the asset directly, no redirect needed |
 | apk | apk names files `<name>-<version>.apk`; `_redirects` has one 302 per package |
-| MacPorts | a signed `ports.tar` of binary Portfiles; each fetches its darwin build from `master_sites` on GitHub Releases |
+| MacPorts | a signify-signed `ports.tar` of binary Portfiles; each fetches its darwin build from `master_sites` on GitHub Releases |
 
 On Windows, the same tools come from the
 [Scoop bucket](https://github.com/xiongnemo/windows-binaries-scoop-bucket):
@@ -40,8 +40,8 @@ apk update && apk add saki nermius nemosh gp-socks
 
 ```sh
 # MacPorts (macOS)
-sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pem https://package.anzupop.com/keys/nemo-macports.pem
-echo /opt/local/share/macports/nemo-macports.pem | sudo tee -a /opt/local/etc/macports/pubkeys.conf
+sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pub https://package.anzupop.com/keys/nemo-macports.pub
+echo /opt/local/share/macports/nemo-macports.pub | sudo tee -a /opt/local/etc/macports/pubkeys.conf
 # add above the [default] line of /opt/local/etc/macports/sources.conf:
 #   https://package.anzupop.com/macports/nightly/ports.tar
 sudo port sync && sudo port install saki nermius nemosh gp-socks
@@ -105,7 +105,7 @@ on the bucket. Without it the bucket's hourly sweep is the only update.
 | `GPG_SIGNING_KEY` | secret | Armored private key; signs apt `InRelease`/`Release.gpg` and rpm `repomd.xml` |
 | `APK_SIGNING_KEY` | secret | PEM RSA private key; signs every `APKINDEX` |
 | `APK_SIGNING_KEY_NAME` | variable | Its file name, e.g. `nemo-packages.rsa`; users install `<name>.pub` |
-| `MACPORTS_SIGNING_KEY` | secret | PEM RSA private key; signs each `ports.tar` as `ports.tar.rmd160` |
+| `MACPORTS_SIGNING_KEY` | secret | signify secret key; signs each `ports.tar` as `ports.tar.sig` (MacPorts checks http(s) tarballs with signify only). The public half is [`keys/nemo-macports.pub`](keys/nemo-macports.pub) |
 | `SITE_URL` | variable | Public base URL, written into the `.repo` files and the landing page, and where `verify-live` installs from |
 
 Without the signing keys each run signs with throwaway keys, writes

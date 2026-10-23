@@ -14,8 +14,8 @@ channel=${2:-nightly}
 prefix=/opt/local
 conf=$prefix/etc/macports
 
-sudo curl -fsSLo "$prefix/share/macports/nemo-macports.pem" "$base/keys/nemo-macports.pem"
-echo "$prefix/share/macports/nemo-macports.pem" | sudo tee -a "$conf/pubkeys.conf" >/dev/null
+sudo curl -fsSLo "$prefix/share/macports/nemo-macports.pub" "$base/keys/nemo-macports.pub"
+echo "$prefix/share/macports/nemo-macports.pub" | sudo tee -a "$conf/pubkeys.conf" >/dev/null
 { echo "$base/macports/$channel/ports.tar"; cat "$conf/sources.conf"; } > sources.conf.new
 sudo mv sources.conf.new "$conf/sources.conf"
 grep -v '^#' "$conf/sources.conf" | grep .
