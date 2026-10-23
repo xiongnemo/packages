@@ -32,5 +32,8 @@ port installed saki nermius nemosh gp-socks
 "$prefix/bin/saki" --version
 "$prefix/bin/nermius" version
 "$prefix/bin/nemosh" --version
-"$prefix/bin/gp-socks" --help 2>&1 | grep -q "Usage of gp-socks"
+# gp-socks has no --version; --help prints its usage and exits non-zero. Kept in
+# a variable rather than piped to grep -q, which would SIGPIPE it under pipefail.
+usage=$("$prefix/bin/gp-socks" --help 2>&1 || true)
+grep -q "Usage of gp-socks" <<< "$usage"
 file "$prefix/bin/saki" "$prefix/bin/nermius" "$prefix/bin/nemosh" "$prefix/bin/gp-socks"
