@@ -50,7 +50,9 @@ sudo port sync && sudo port install saki nermius nemosh gp-socks
 A MacPorts tree holds one version per port, so each channel's tree has the
 newest release of each project; the ports are named as the commands are. List
 one channel in `sources.conf`: with both, MacPorts takes each port from
-whichever line comes first.
+whichever line comes first. MacPorts 2.12.7 cannot sync an http(s) tarball
+source without a terminal (`can't read "verboseflag"`); in scripts and CI, use
+`port -v sync`.
 
 The apt and rpm metadata are signed with GPG key
 `A55073A0CA98126E1A693E79DD3919908757998C`; packages themselves are not signed,
