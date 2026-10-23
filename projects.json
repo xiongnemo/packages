@@ -1,8 +1,20 @@
 {
   "projects": [
-    { "repo": "xiongnemo/Saki", "keep": 3, "scoop": true },
-    { "repo": "xiongnemo/nermius", "keep": 3, "scoop": true },
-    { "repo": "xiongnemo/nemosh", "keep": 3, "scoop": true },
-    { "repo": "xiongnemo/globalprotect-socks5", "keep": 3 }
+    {
+      "repo": "xiongnemo/Saki", "keep": 3, "scoop": true,
+      "macports": { "port": "saki", "binary": "saki", "category": "audio", "description": "Terminal Subsonic music player." }
+    },
+    {
+      "repo": "xiongnemo/nermius", "keep": 3, "scoop": true,
+      "macports": { "port": "nermius", "binary": "nermius", "category": "net", "description": "Portable SSH manager with an encrypted SQLite vault, a CLI and a TUI." }
+    },
+    {
+      "repo": "xiongnemo/nemosh", "keep": 3, "scoop": true,
+      "macports": { "port": "nemosh", "binary": "nemosh", "category": "shells", "license": "Apache-2", "description": "BusyBox-style shell and applets in one executable. Windows is its supported platform; this macOS build is a convenience and is not supported." }
+    },
+    {
+      "repo": "xiongnemo/globalprotect-socks5", "keep": 3,
+      "macports": { "port": "gp-socks", "binary": "gp-socks", "category": "net", "description": "GlobalProtect VPN as a local SOCKS5 proxy, with SSO." }
+    }
   ]
 }

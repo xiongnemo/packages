@@ -52,12 +52,14 @@ jobs:
             include=(--include "${DISPATCH_REPO}@${DISPATCH_TAG}")
           fi
           python3 scripts/collect.py projects.json work site "${include[@]}"
+          python3 scripts/macports.py projects.json work site "${include[@]}"
 
       - name: Index and sign
         env:
           GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
           APK_SIGNING_KEY: ${{ secrets.APK_SIGNING_KEY }}
           APK_SIGNING_KEY_NAME: ${{ vars.APK_SIGNING_KEY_NAME }}
+          MACPORTS_SIGNING_KEY: ${{ secrets.MACPORTS_SIGNING_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}
         run: |
           set -euo pipefail
@@ -138,6 +140,42 @@ jobs:
           cat server.log
           exit $status
 
+  # MacPorts gets the same check on both Mac architectures: install MacPorts,
+  # add the site's key and tree as the landing page says, sync (which verifies
+  # the tarball's signature) and install every port from it.
+  test-macports:
+    name: MacPorts install on ${{ matrix.runner }}
+    needs: build
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-latest, macos-15-intel]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site
+
+      - name: Install MacPorts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/install-macports.sh
+
+      - name: Install the ports from the site
+        run: |
+          set -euo pipefail
+          python3 scripts/serve.py site 8080 > server.log 2>&1 &
+          sleep 1
+          status=0
+          bash scripts/test-macports.sh http://127.0.0.1:8080 || status=$?
+          echo "== requests"
+          cat server.log
+          exit $status
+
   # Scoop is not indexed here: the bucket is its own repository, and its
   # Excavator hashes the published archive itself. What this adds is the
   # dispatch: a release announced here is announced to the bucket too, so a
@@ -194,7 +232,7 @@ jobs:
   # push is live within a minute and nothing here holds a Cloudflare token.
   deploy:
     name: Deploy
-    needs: test
+    needs: [test, test-macports]
     timeout-minutes: 10
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -282,3 +320,34 @@ jobs:
             nemosh --version
             gp-socks --help 2>&1 | grep -q "Usage of gp-socks"
           '
+
+  live-macports:
+    name: Live MacPorts install on macos-latest
+    needs: deploy
+    if: needs.deploy.outputs.commit != ''
+    runs-on: macos-latest
+    timeout-minutes: 30
+    env:
+      BASE: ${{ vars.SITE_URL }}
+      COMMIT: ${{ needs.deploy.outputs.commit }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for the site to serve this commit
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 30); do
+            served=$(curl -fsSI --max-time 20 "$BASE/" 2>/dev/null | tr -d '\r' | awk -F': ' 'tolower($1) == "x-site-commit" { print $2 }' || true)
+            [ "$served" = "$COMMIT" ] && { echo "serving $COMMIT (check $attempt)"; exit 0; }
+            sleep 10
+          done
+          echo "::error::$BASE still serves ${served:-nothing}, not $COMMIT"
+          exit 1
+
+      - name: Install MacPorts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/install-macports.sh
+
+      - name: Install the ports from the live site
+        run: bash scripts/test-macports.sh "$BASE"

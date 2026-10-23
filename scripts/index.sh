@@ -7,6 +7,7 @@
 #   GPG_SIGNING_KEY       armored private key; signs apt InRelease/Release.gpg and rpm repomd.xml
 #   APK_SIGNING_KEY       PEM RSA private key; signs every APKINDEX
 #   APK_SIGNING_KEY_NAME  its file name as users install it, e.g. nemo-packages.rsa
+#   MACPORTS_SIGNING_KEY  PEM RSA private key; signs every MacPorts ports.tar
 # Without them the indices are signed with throwaway keys and SITE/TEST-ONLY is
 # written, which the deploy job refuses: the signing path is exercised on every
 # run, and a site nobody can verify is never published.
@@ -44,6 +45,13 @@ else
 fi
 openssl rsa -in "$keys/apk/$apk_key" -pubout -out "$keys/apk/$apk_key.pub" 2>/dev/null
 cp "$keys/apk/$apk_key.pub" "$site/keys/"
+
+if [ -n "${MACPORTS_SIGNING_KEY:-}" ]; then
+  printf '%s\n' "$MACPORTS_SIGNING_KEY" > "$keys/macports.pem"
+else
+  openssl genrsa -out "$keys/macports.pem" 4096 2>/dev/null
+fi
+openssl rsa -in "$keys/macports.pem" -pubout -out "$site/keys/nemo-macports.pem" 2>/dev/null
 
 sign_detached() { gpg --batch --yes --local-user "$fpr" --armor --detach-sign --output "$1.asc" "$1"; }
 
@@ -135,6 +143,23 @@ for channel in nightly stable; do
   echo "apk $channel: $(ls "$out" | tr '\n' ' ')"
 done
 
+# -- macports -------------------------------------------------------------------
+echo "== macports"
+
+# MacPorts verifies a tarball source by its .rmd160 signature only when the URL
+# ends in .tar, so the tree is an uncompressed tar, with `ports/` at the top as
+# MacPorts' own tarball has. It is built reproducibly: same tree, same bytes.
+for channel in nightly stable; do
+  root="$work/macports-$channel"
+  [ -d "$root/ports" ] || continue
+  out="$site/macports/$channel"
+  mkdir -p "$out"
+  tar --sort=name --owner=0 --group=0 --numeric-owner --mtime='@0' --format=ustar -C "$root" -cf "$out/ports.tar" ports
+  openssl dgst -ripemd160 -sign "$keys/macports.pem" -out "$out/ports.tar.rmd160" "$out/ports.tar"
+  openssl dgst -ripemd160 -verify "$site/keys/nemo-macports.pem" -signature "$out/ports.tar.rmd160" "$out/ports.tar"
+  echo "macports $channel: $(find "$root/ports" -name Portfile | wc -l) ports"
+done
+
 # -- landing page -------------------------------------------------------------
 echo "== landing page"
 
@@ -162,7 +187,19 @@ sudo apt update</pre>
 <h3>apk</h3>
 <pre>wget -qO /etc/apk/keys/{apk_key} {url}/keys/{apk_key}
 echo "{url}/apk/{channel}" >> /etc/apk/repositories
-apk update</pre>"""
+apk update</pre>""" + macports(channel)
+
+
+def macports(channel):
+    if not (site / "macports" / channel / "ports.tar").exists():
+        return ""
+    return f"""
+<h3>MacPorts</h3>
+<pre>sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pem {url}/keys/nemo-macports.pem
+echo /opt/local/share/macports/nemo-macports.pem | sudo tee -a /opt/local/etc/macports/pubkeys.conf
+# then add this line above the [default] line of /opt/local/etc/macports/sources.conf:
+{url}/macports/{channel}/ports.tar
+sudo port sync</pre>"""
 
 
 def table(channel):
