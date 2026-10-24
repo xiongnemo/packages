@@ -1,0 +1,63 @@
+Package: gp-socks
+Architecture: riscv64
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14589
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-riscv64.deb
+Size: 7794928
+MD5sum: 6ccb892212668c99778516923f4aba29
+SHA1: 6ce16e0b65dacc84626a583e25dce1c72ea5ed60
+SHA256: 3d2f725bb3e27aee9d03eba635a198b33226ea7289a81ef7816217a853bf7f59
+SHA512: 3a3c9a2562b0bfee7bd92f1dfe57d5c755b50ecbd66ddfbdc57ce1db1c289d4268edba2c71ff59c0c58a3a949ab7e1cad07c817ff8fce6a0d5f74e2829aa8ba6
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: nermius
+Architecture: riscv64
+Version: 0.0.24-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12608
+Filename: pool/xiongnemo/nermius/v0.0.24-dev-69c58635fd1a/nermius-linux-riscv64.deb
+Size: 5400894
+MD5sum: 9e5eb99106c6a5bfdb5a5817f503867f
+SHA1: 23cd250618dbfe6f7d5591578b66dcd631258aa7
+SHA256: 269c7f940e02d2a233627b52d26028d3d9d08c47e27552456de1382a4087afb1
+SHA512: 04d23efcd893ac6551050d66652b2f282a39cd5aae25e9b9b5419b0758ae9e56e934a91b85293bf324addb62f4c47f4a55a7d8d5e747e111aed7f5b12f51a95b
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: riscv64
+Version: 0.0.30-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12608
+Filename: pool/xiongnemo/nermius/v0.0.30-dev-3e714a6e2e58/nermius-linux-riscv64.deb
+Size: 5400898
+MD5sum: 9d2c5f08c090effff4780d3e2e183e14
+SHA1: a803c76786930579468456b6493dbe15df57d858
+SHA256: 29615ca80d711294e8099017542c59b0a9196ef1aec099a2a2b4df46c5ed062b
+SHA512: f2d72c1847ecb0f1afbc3fd0839e34a21386cba99ad8ce20871de19d44202ce1702e964926ea9d1bc35695c3503ef16bb309dab0a8dd2ad8cc0e00ff7e16dc87
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: riscv64
+Version: 0.0.32~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12608
+Filename: pool/xiongnemo/nermius/v0.0.32-dev-59b60eb78fd0/nermius-linux-riscv64.deb
+Size: 5400920
+MD5sum: 1b3a6fa769000161066ba49d38090894
+SHA1: be006f86cc7eb753aa476733ddd34e368066ee04
+SHA256: 16e2be2efcb83a31824c639bb724d96cbb03885adb24315102bf3434c80ea4bd
+SHA512: 4aa4d06c21ad2bbc91bd270e886ef32fa04762403c893ebbcfad6e527f7d39ab8c0239e90a199fa17477626d035e3253dfe20da04bacee4cbaa6775df602eea3
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.

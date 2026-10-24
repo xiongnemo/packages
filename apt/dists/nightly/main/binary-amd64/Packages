@@ -1,0 +1,133 @@
+Package: saki
+Architecture: amd64
+Version: 0.0.61~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 9976
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v0.0.61-dev-bcdd15be361b/saki-v0.0.61-dev-bcdd15be361b-linux-amd64.deb
+Size: 4222390
+MD5sum: f6325ef839f3f41d402ef1ace5662f75
+SHA1: 316a5b4306a0a03114f6dd78c73e8a41d6518878
+SHA256: 62e3d0784b2d3a7909a4e66392d37fbf95918b0054ad6d6d0d08793bd55f2456
+SHA512: 0629991078fd16a793645d3922003876d3c712510412ee392ff87dca7012959c138b389bc09b467575b9999956fd337907bb539fc3284fb0367e8d4ca616dee0
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v0.0.61-dev-bcdd15be361b)
+
+Package: saki
+Architecture: amd64
+Version: 0.0.63~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 9976
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v0.0.63-dev-4b750bd64c39/saki-v0.0.63-dev-4b750bd64c39-linux-amd64.deb
+Size: 4222460
+MD5sum: 01704a6d41e022ba45636c24ada71e0c
+SHA1: e81aa63c7dbcd0ecad3c75394e6fac2dcea3f9d3
+SHA256: 6fb2dd050cfe1979ea8a8cb1f3d71538da05c51514d1ecd5e1c26e7d3359d0c7
+SHA512: a307b2c601dfa1a4f67e30caea11550766f64bde619022fa7dd688f971ef61d0f593b829e3f835f7babc4cbef7f1a3e1b66c6594cd57becb086284fc6e86c657
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v0.0.63-dev-4b750bd64c39)
+
+Package: gp-socks
+Architecture: amd64
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 15176
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-amd64.deb
+Size: 8230488
+MD5sum: 3b75d7681636c501e2a4cb60356392bb
+SHA1: ffb5f8194309cda8f5d048686bfe18e9d034f72e
+SHA256: 948f9513bc3aac20819c713bd92d99d9c61dc1341c6cdc6bdcb04e0ed543cf75
+SHA512: 77087a71fb1f399a12c44ce8a60962b41de290101fcdc8aeec8b4d8eb0a0d8f3fd555c8fdb5b8a98f8ecc011292bd94c2f9af050dd32a6897012b3797785c162
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: nemosh
+Architecture: amd64
+Version: 1.4.20~pre-1
+Priority: optional
+Section: shells
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14735
+Filename: pool/xiongnemo/nemosh/v1.4.20-master-418154ac3149/nemosh-v1.4.20-master-418154ac3149-linux-amd64.deb
+Size: 6134600
+MD5sum: 244a1002e05db600b80e9d68787c67b4
+SHA1: 4a4f25285db70dd3436a911a597f7b0f3b553597
+SHA256: 30ce1ea0b58b00d0f4619341f84c4aacf779338c45a13d103e5b394a81c83bb3
+SHA512: 69de9f36a66a66ad3d765392b4991ec5c24a7776c7b167453d8b496fbe6e0d0640de36bee07f98836a88c321521182c01354682b01c941917c779c3692cf361a
+Homepage: https://github.com/xiongnemo/nemosh
+Description: BusyBox-style shell and applets in one executable (v1.4.20-master-418154ac3149).
+ Windows is the supported platform; this Linux build is published as a
+ convenience and is not supported.
+
+Package: nemosh
+Architecture: amd64
+Version: 1.4.21~pre-1
+Priority: optional
+Section: shells
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14735
+Filename: pool/xiongnemo/nemosh/v1.4.21-master-2c1127a80fda/nemosh-v1.4.21-master-2c1127a80fda-linux-amd64.deb
+Size: 6134598
+MD5sum: abcbc8e89c8aa6976385dc1dd092bb4c
+SHA1: 3a6c0f15a894dbae137e9519a6c08b772d84adfe
+SHA256: 31ce4e9bf90d5471eee0c3f25cf195ff40b57015765c4027875f1d2e385e0e4b
+SHA512: 17d2f0481bdf659a2c1236a4fd23714a3d98329572b6a5d683b96e31ff2764202d80010b83f448e2a71e8abd116ca985f7a6458ffd4a9cd24844d94766318a59
+Homepage: https://github.com/xiongnemo/nemosh
+Description: BusyBox-style shell and applets in one executable (v1.4.21-master-2c1127a80fda).
+ Windows is the supported platform; this Linux build is published as a
+ convenience and is not supported.
+
+Package: nermius
+Architecture: amd64
+Version: 0.0.24-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 13048
+Filename: pool/xiongnemo/nermius/v0.0.24-dev-69c58635fd1a/nermius-linux-amd64.deb
+Size: 5650120
+MD5sum: 858d85e11cf2f8748053046faa58e584
+SHA1: 5f10ab1828722b8e85edea9760f0dc4d02b695a0
+SHA256: 184df0aeac925fd4fdb9a160d971cd50629d29b78eb4faaf9db2f615101fe2c4
+SHA512: 7ef80e9739bd4dea71829d5c10a766b3bcce134cd98eb5f116e182887e08bca6a591a5e95ecd51826c5542d81841473ccd153ac11d6425b1b0f4bd13707322bc
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: amd64
+Version: 0.0.30-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 13048
+Filename: pool/xiongnemo/nermius/v0.0.30-dev-3e714a6e2e58/nermius-linux-amd64.deb
+Size: 5650120
+MD5sum: fa68b85accc2b6c24dab5d78ac1c37c6
+SHA1: 70b474078601936f9dbb8f69e09bed3244948df9
+SHA256: 5a934e2230a63eb25c98f78d8e599aaf13279cfc253d87a7dc6690a2f8cc3485
+SHA512: 102226f227a13ac7557c0480e1cbd7c086d93dca9acb7e81ea6a233a59477665bdaaefd6569a1feb49b4e367c0c2ee942a5d0c9f28d28691205be097d79f9118
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: amd64
+Version: 0.0.32~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 13048
+Filename: pool/xiongnemo/nermius/v0.0.32-dev-59b60eb78fd0/nermius-linux-amd64.deb
+Size: 5650088
+MD5sum: ce8de29b0fd1942ba1c4f727df9c5062
+SHA1: 402536dd572ced46e7ea80d46d5dccc00c16152d
+SHA256: 5e6e79c5cdbb253cf596552cada295f6d9d6ed7d17957e9528d8a8efe1a996d9
+SHA512: 3100e98c7f86f723835f4d07d90aad37463f915c1824221095e46ec9ba779a55ca5a385d2ff1607e1fcec8e218cf8c0bf3815c96d69ed56ea8cc3bdebf4bc008
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
