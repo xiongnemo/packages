@@ -13,6 +13,10 @@
       "macports": { "port": "nemosh", "binary": "nemosh", "category": "shells", "license": "Apache-2", "description": "BusyBox-style shell and applets in one executable. Windows is its supported platform; this macOS build is a convenience and is not supported." }
     },
     {
+      "repo": "xiongnemo/Tsumugi", "keep": 3, "scoop": true,
+      "macports": { "port": "tsumugi", "binary": "tsumugi", "category": "net", "description": "Telegram TUI client, usable on a raw Linux console." }
+    },
+    {
       "repo": "xiongnemo/globalprotect-socks5", "keep": 3,
       "macports": { "port": "gp-socks", "binary": "gp-socks", "category": "net", "description": "GlobalProtect VPN as a local SOCKS5 proxy, with SSO." }
     }

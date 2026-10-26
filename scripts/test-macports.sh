@@ -25,15 +25,16 @@ grep -v '^#' "$conf/sources.conf" | grep .
 # output is on, which needs a terminal, so a sync without one fails with
 # `can't read "verboseflag"` (fixed on macports-base master).
 sudo port -N -v sync
-port info --version --platforms saki nermius nemosh gp-socks
-sudo port -N install saki nermius nemosh gp-socks
-port installed saki nermius nemosh gp-socks
+port info --version --platforms saki nermius nemosh gp-socks tsumugi
+sudo port -N install saki nermius nemosh gp-socks tsumugi
+port installed saki nermius nemosh gp-socks tsumugi
 
 "$prefix/bin/saki" --version
 "$prefix/bin/nermius" version
 "$prefix/bin/nemosh" --version
+"$prefix/bin/tsumugi" --version
 # gp-socks has no --version; --help prints its usage and exits non-zero. Kept in
 # a variable rather than piped to grep -q, which would SIGPIPE it under pipefail.
 usage=$("$prefix/bin/gp-socks" --help 2>&1 || true)
 grep -q "Usage of gp-socks" <<< "$usage"
-file "$prefix/bin/saki" "$prefix/bin/nermius" "$prefix/bin/nemosh" "$prefix/bin/gp-socks"
+file "$prefix/bin/saki" "$prefix/bin/nermius" "$prefix/bin/nemosh" "$prefix/bin/gp-socks" "$prefix/bin/tsumugi"
