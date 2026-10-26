@@ -24,15 +24,19 @@ from pathlib import Path
 
 from collect import download, releases, sha256
 
-ARCHES = {"arm64": "darwin-arm64", "x86_64": "darwin-amd64"}
+# Projects spell the platform with a hyphen (saki-...-darwin-arm64.tar.gz) or an
+# underscore (tsumugi_..._darwin_arm64.tar.gz); either names the same build.
+ARCHES = {"arm64": ("darwin-arm64", "darwin_arm64"), "x86_64": ("darwin-amd64", "darwin_amd64")}
 
 
 def darwin_assets(release):
     found = {}
-    for arch, marker in ARCHES.items():
+    for arch, markers in ARCHES.items():
         for asset in release["assets"]:
             name = asset["name"]
-            if asset["state"] == "uploaded" and marker in name and (name.endswith(".tar.gz") or name.endswith(marker)):
+            if asset["state"] != "uploaded":
+                continue
+            if any(m in name and (name.endswith(".tar.gz") or name.endswith(m)) for m in markers):
                 found[arch] = asset
                 break
     return found
