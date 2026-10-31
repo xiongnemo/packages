@@ -1,0 +1,15 @@
+Package: gp-socks
+Architecture: s390x
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 15665
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-s390x.deb
+Size: 7976038
+MD5sum: dc64464a3d6ca5838002776b5860b1d7
+SHA1: 8123406ad2fbb0d8a19ada9569b9e5a31284cff1
+SHA256: 95bddf57f49dad5f076f1b60a06e685ee45212bcbf34ad66ce51572f07d559c2
+SHA512: 5745f0d56ccb345b0c49ace80f520b24659cc68d28235c303cac8dfe777acfdc6840837ea2e5d1d004e69d0c3d4c10d96acfc8d99267eca4ded35f4d8f78f236
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.

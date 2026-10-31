@@ -1,0 +1,36 @@
+Architectures: amd64 arm64 i386
+Codename: stable
+Components: main
+Date: Sat, 31 Oct 2026 12:49:42 +0000
+Description: Nemo's Packages (stable)
+Label: nemo
+Origin: nemo
+Suite: stable
+MD5Sum:
+ df1964ae655287215cd9e6c99b703844              676 main/binary-amd64/Packages
+ da02b000b2316a902de0bac4485ce997              474 main/binary-amd64/Packages.gz
+ 3b982225ff35d60f6cd150287ccb3d80              676 main/binary-arm64/Packages
+ 435f635b9d99fef65bd8ea216f7f3f91              473 main/binary-arm64/Packages.gz
+ f6249ee1c42f58d6cc86256584c023e3              674 main/binary-i386/Packages
+ d35faccf07ded7a86fec010911ca7e66              474 main/binary-i386/Packages.gz
+SHA1:
+ c848776ac417f49d53f5cf72fe341cbcd6704a50              676 main/binary-amd64/Packages
+ 1e5572b9cbb7d4a9baeddd70e821daa8e0629500              474 main/binary-amd64/Packages.gz
+ 92a025f9add67dba905b38505254053da32b7999              676 main/binary-arm64/Packages
+ 1b8194c23bab564ca17bed196c55ad2d0db83d6d              473 main/binary-arm64/Packages.gz
+ 468334346ddf7ec993a414f19fec57e6f2ff6a68              674 main/binary-i386/Packages
+ 7067343a5e854a5fb06a7b685020bf73ea75db6c              474 main/binary-i386/Packages.gz
+SHA256:
+ 04772940891b69d7132502958a90ac9d6b71d43bc86ed43164e8399576a7c5d6              676 main/binary-amd64/Packages
+ 8624a565fd696cd8a3c786209d799c5af0f4893a964eb29e58c82029be7fe624              474 main/binary-amd64/Packages.gz
+ 7b136b072fe6fe3fa5ae19cea9f8885a006175ae0e9ddca43fcb8dc892d5ed6c              676 main/binary-arm64/Packages
+ 9b1f6d36fdd386b487d0e991f5dbc095aec407655632f98f97e2ca3eab8f8771              473 main/binary-arm64/Packages.gz
+ d9da1dec8d121f4053fc08b615bbe2fc36ae2eec8626f11eb2596e0ce3951f26              674 main/binary-i386/Packages
+ 76c6348222035bc202702eaff5bb4780f500e04d0bec1bb10aa339f760c47eaa              474 main/binary-i386/Packages.gz
+SHA512:
+ 81b08d14974e40327f7ff43410ad80240c4284f29a7c5f32bf336a602ab8a83d09a7514188e7117ec75d883baddf9539b0897764c2b74172112bd58ea865ffd1              676 main/binary-amd64/Packages
+ a5dda81f34522bfcad07da5f29eee181793e19fe41b314d2ae43e61060d65e0007a2b0ed3665f5a1286c176240903f75a48c6ddcf06e098cc90eeafff9f59802              474 main/binary-amd64/Packages.gz
+ 7f69763440d11d9df93c374b2c51ea58457e54438e61a7ffac8c0d681afbac1351832922859cbf8070d2516e5d793e9530124007b22110cbf48ca577ec0be8bc              676 main/binary-arm64/Packages
+ 5cb478b150b02b5b23f51c113e0fb15986c93242375efa99261a5398436669cdfb42ceccbe7f605b1719bf6b8b721db790fe387b1925de859447b75e564453ed              473 main/binary-arm64/Packages.gz
+ ce4f82256415bcfe768cadef5470095f7530dabc598865513456b04302a4b0ace3397332413ceeaf2b6021da3887934d5af9ca0ad62632f3d1028e829d44281b              674 main/binary-i386/Packages
+ 1fe3faf2b88753e5318c38a10860942490c4f468c797284b9cc6f623a964578eb0c5be4d4cd0a16fe88b1c7074113f0c7dda928cb96ebfc9cfb15c28156bcc0c              474 main/binary-i386/Packages.gz

@@ -1,0 +1,114 @@
+Package: saki
+Architecture: i386
+Version: 0.0.68~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 13097
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v0.0.68-dev-414fc7629916/saki-v0.0.68-dev-414fc7629916-linux-i686.deb
+Size: 5655126
+MD5sum: 9201238dd6d2ea11211e644395bb6853
+SHA1: 15940c899125614b24c63228e8b276127185a733
+SHA256: b867003c309ffdbbea21b9b626bfd59fe2dd74293d0d941d6366f5b5e148a24e
+SHA512: b43ab2d0dbc5ddb0d86f38b388373a2bac4bdc3efc662ffceceb556ccd48c0d8efd9e764344803ecd70e393a1ab130b4244d96c7ad6a8887c7b13cda83dc86fd
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v0.0.68-dev-414fc7629916)
+
+Package: saki
+Architecture: i386
+Version: 0.0.69~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 13097
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v0.0.69-dev-bdc6ddd4cf34/saki-v0.0.69-dev-bdc6ddd4cf34-linux-i686.deb
+Size: 5655122
+MD5sum: 7daf3a93bde99f759ffecad1cb52da2d
+SHA1: 89a6f6dfd33813559e8b2c8d2f4b047941a89337
+SHA256: aa39d3e60120c92767b4bddf6734a016a93622675088ffc2496759283a6ab81e
+SHA512: d54d592867b5d01675a6af86ddadbf5393855bb07fdeee0514fb5d1408b97ecdf64e86085bd4781aa28ac57b2fe38d0d88174da91a40efcbe32410c097819671
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v0.0.69-dev-bdc6ddd4cf34)
+
+Package: saki
+Architecture: i386
+Version: 1.0.1~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 13097
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v1.0.1-dev-4c680af946e5/saki-v1.0.1-dev-4c680af946e5-linux-i686.deb
+Size: 5655086
+MD5sum: eaa202d6d7e33cf47bc4389d38034c8a
+SHA1: 7a1714758aa8442d578a1fb58cc82126a0ecb64d
+SHA256: 848cd2fd3c79aaad9dca40a21ea65f13573d7ede02bc840834be872ecae7298a
+SHA512: 1ae49ee2616eb7aecb238bc0fd117fd759b4a3eac1be0446f51a2153e5487ef3d1347422d0a706e4d1b2d724e01e7b4bd169b86dff6615e0c79c6099bc79a77a
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v1.0.1-dev-4c680af946e5)
+
+Package: gp-socks
+Architecture: i386
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14413
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-386.deb
+Size: 7923642
+MD5sum: 193e8975677a9020e7b7b2ac36a2b768
+SHA1: 0f2d1854dfcd67ec151997c9d2fbd674aa26be15
+SHA256: 52549e1afb0b187f2cd9bf3eeed864634fb8423756cc62340c377ab0210c32ed
+SHA512: 0d5c6110bd8b58f977bf8a212c916d983ff5bdd00c50ec95f86338e957d0400da7fcd39aaef743812c2a7c3e36fc09fc408b2e7ee30ef1fd7d4d41ed40344e29
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: nermius
+Architecture: i386
+Version: 0.0.30-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12272
+Filename: pool/xiongnemo/nermius/v0.0.30-dev-3e714a6e2e58/nermius-linux-386.deb
+Size: 5352296
+MD5sum: eca8faa896f7b2371eb5ca128a5e1143
+SHA1: 7202da516f4b245ca9dd556214003f8825152997
+SHA256: c19cd901fc4aaeb87d89605bbf947a00e60322875230264dee46e927e9104853
+SHA512: b57fd2a8c205b965418c64bc52f95a721bfab4f6f316c0ba5a8459b0b332989b2bf693dc85848fdfa179c0e42ca7206d70df06532ee988714a2f8573e9a14e31
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: i386
+Version: 0.0.32~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12272
+Filename: pool/xiongnemo/nermius/v0.0.32-dev-59b60eb78fd0/nermius-linux-386.deb
+Size: 5352376
+MD5sum: a51507c477e55a799e06e2389f3cc1b2
+SHA1: 81c13a3efa94a5ae0c106a93e1b0e52ece2f8da7
+SHA256: 0c8aa635c405327fcbc937187bebca52a732e136be14b8e0458d3cdeb8d66115
+SHA512: fe2f8a3928d3fe804d36e6aa764f8b42a30748a5c3116a6cf21da000874788c34f95dfad0e31ab80435d5e978ac3389d58b2e9f559814baaba05a742de054443
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: i386
+Version: 0.0.33~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12292
+Filename: pool/xiongnemo/nermius/v0.0.33-dev-0786ecbdf09c/nermius-linux-386.deb
+Size: 5360200
+MD5sum: c9a11b9a1eb299314651620d99a2edcf
+SHA1: 4c2005a3d2ad688fa5d356d736817bffad9aecbc
+SHA256: 43537e78a706038a6d66aaee3090f5127286dbd22af14ef4855409f3affb7d3b
+SHA512: ae035b067c711515c07c0d78d24fdc1fd3a3b28ed19f0688ab9bfc1db87af85dcc7fbbbac6a79ee494b56539e1a503c4df8bb53178363a1b55c1dbd61b1e6f57
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
