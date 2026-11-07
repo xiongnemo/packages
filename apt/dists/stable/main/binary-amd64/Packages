@@ -1,0 +1,16 @@
+Package: saki
+Architecture: amd64
+Version: 1.0.0-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 13689
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v1.0.0/saki-v1.0.0-linux-amd64.deb
+Size: 5928750
+MD5sum: aff6a9ad99a6e8d7e88d06974f14da20
+SHA1: 169ee58e5127417e85dd9a89d34f6ab8d97368d2
+SHA256: bf445ab11e76cbb5dad1e7dadff2854c942b293f49f8b73966f2e38af9790b51
+SHA512: d99046863a9f78a0ee4ca57a02f6ea90e4728490013b9263bbc394b5e440cb9978cf76d24642ca7e66b8dd04d14af068e9182812033c795696a10fadd5cf705b
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v1.0.0)

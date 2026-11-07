@@ -1,0 +1,15 @@
+Package: gp-socks
+Architecture: ppc64el
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 15047
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-ppc64le.deb
+Size: 7793070
+MD5sum: 1f8ece7e6d43ef98181130e326ff6c82
+SHA1: 4b4071c3b6b5a2195662a387fa330a8fa42cb6e2
+SHA256: a6ac92c52216f8b0ec430bb571817b23e7e426d87f419f5e1fe2d92f05cef560
+SHA512: 649c2b3b42a433f749b8305470e69bd8a5a7ce246c02be9820c5491e637fc1095f62d23fdb481ce3e7e660d93ae4f20908f27841ca297afb43c4f8379bf668fa
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
