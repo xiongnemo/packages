@@ -13,7 +13,8 @@ executable into ${prefix}/bin.
   WORK/macports-<channel>/ports/<category>/<port>/Portfile
 
 index.sh tars each tree and signs it. Projects opt in with a `macports` object
-in projects.json: port name, binary name, category, license, description.
+in projects.json: port name, binary name, category, license, and a description
+when the project's own one does not fit the port.
 """
 
 import json
@@ -73,6 +74,7 @@ def tcl_text(value):
 def portfile(project, release, files):
     config = project["macports"]
     repo, tag = project["repo"], release["tag_name"]
+    description = config.get("description", project["description"])
     version = re.match(r"v?(\d+\.\d+\.\d+)", tag).group(1)
     arch_blocks = []
     for arch, (asset_name, digest, size, member) in files.items():
@@ -104,8 +106,8 @@ supported_archs     {' '.join(sorted(files))}
 installs_libs       no
 universal_variant   no
 
-description         {tcl_text(config['description'])}
-long_description    {tcl_text(config['description'] + f' This port installs the prebuilt {tag} binary published on GitHub Releases.')}
+description         {tcl_text(description)}
+long_description    {tcl_text(description + f' This port installs the prebuilt {tag} binary published on GitHub Releases.')}
 homepage            https://github.com/{repo}
 master_sites        https://github.com/{repo}/releases/download/{tag}/
 

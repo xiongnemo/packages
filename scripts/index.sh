@@ -167,11 +167,12 @@ done
 # -- landing page -------------------------------------------------------------
 echo "== landing page"
 
-python3 - "$site" "$site_url" "$apk_key.pub" <<'PY'
+python3 - "$site" "$site_url" "$apk_key.pub" "$(dirname "$0")/../projects.json" <<'PY'
 import html, json, sys
 from pathlib import Path
 
 site, url, apk_key = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+projects = json.loads(Path(sys.argv[4]).read_text())["projects"]
 manifest = json.loads((site / "manifest.json").read_text())
 esc = html.escape
 about = {
@@ -223,7 +224,31 @@ def table(channel):
     return f"<table>{rows}</table>"
 
 
-sections = []
+def overview():
+    """One row per project: its repository, what to install, the newest tag per channel."""
+    def newest(repo, channel):
+        # collect.py lists each project's releases newest first.
+        tag = next((p["tag"] for p in manifest if p["repo"] == repo and p["channel"] == channel), None)
+        if tag is None:
+            return "&mdash;"
+        return f"<a href=\"https://github.com/{esc(repo)}/releases/tag/{esc(tag)}\">{esc(tag)}</a>"
+
+    rows = []
+    for project in projects:
+        repo = project["repo"]
+        names = sorted({p["package"] for p in manifest if p["repo"] == repo and "package" in p})
+        if not names and "macports" in project:
+            names = [project["macports"]["port"]]
+        rows.append(
+            f"<tr><td><a href=\"https://github.com/{esc(repo)}\">{esc(repo.split('/')[1])}</a></td>"
+            f"<td>{', '.join(f'<code>{esc(n)}</code>' for n in names) or '&mdash;'}</td>"
+            f"<td>{esc(project.get('description', ''))}</td>"
+            f"<td>{newest(repo, 'stable')}</td><td>{newest(repo, 'nightly')}</td></tr>")
+    head = "<tr><th>Project</th><th>Package</th><th>Description</th><th>stable</th><th>nightly</th></tr>"
+    return f"<h2>Projects</h2>\n<table class=\"projects\">{head}\n" + "\n".join(rows) + "</table>"
+
+
+sections = [overview()]
 for channel in ("stable", "nightly"):
     body = f"<p>{esc(about[channel])}</p>"
     if any(p["channel"] == channel for p in manifest):
@@ -236,7 +261,8 @@ page = f"""<!doctype html>
 <meta charset="utf-8">
 <title>Nemo's Packages</title>
 <style>body{{font:15px/1.5 system-ui,sans-serif;max-width:60rem;margin:2rem auto;padding:0 1rem}}
-pre{{background:#f4f4f4;padding:.75rem;overflow-x:auto}}td{{padding:.1rem .6rem;font-size:13px}}</style>
+pre{{background:#f4f4f4;padding:.75rem;overflow-x:auto}}td,th{{padding:.1rem .6rem;font-size:13px;text-align:left;vertical-align:top}}
+.projects td,.projects th{{font-size:15px;padding:.25rem .6rem}}.projects tr+tr td{{border-top:1px solid #eee}}</style>
 <h1>Nemo's Packages</h1>
 <p>Indices only: every package is fetched from its GitHub Release. Two channels,
 each on its own: subscribe to <code>stable</code>, <code>nightly</code> or both.

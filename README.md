@@ -79,7 +79,8 @@ A project's release job sends a `repository_dispatch` of type
 fetched directly, because the releases list has lagged an upload by hours; the
 six-hourly schedule catches anything that could not dispatch. Projects are
 listed in [`projects.json`](projects.json), with how many releases per channel
-to keep. Prereleases are `nightly`, the rest `stable`.
+to keep and the one-line description the landing page's project list shows.
+Prereleases are `nightly`, the rest `stable`.
 
 The dispatching repository needs a `PACKAGES_DISPATCH_TOKEN` secret: a
 fine-grained token with **Contents: read and write** on this repository.
