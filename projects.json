@@ -19,6 +19,10 @@
     {
       "repo": "xiongnemo/globalprotect-socks5", "keep": 3,
       "macports": { "port": "gp-socks", "binary": "gp-socks", "category": "net", "description": "GlobalProtect VPN as a local SOCKS5 proxy, with SSO." }
+    },
+    {
+      "repo": "xiongnemo/ruijie-sslvpn-socks5", "keep": 3, "scoop": true,
+      "macports": { "port": "rj-socks", "binary": "rj-socks", "category": "net", "description": "Ruijie SSL VPN as a local SOCKS5 proxy, without a TUN device." }
     }
   ]
 }
