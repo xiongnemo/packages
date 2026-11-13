@@ -248,6 +248,10 @@ def overview():
     return f"<h2>Projects</h2>\n<table class=\"projects\">{head}\n" + "\n".join(rows) + "</table>"
 
 
+# The trees scripts/listing.py gives directory pages, at the end of this script.
+browse = " &middot; ".join(f"<a href=\"{d}/\">{d}/</a>" for d in ("apt", "rpm", "apk", "macports", "keys")
+                           if (site / d).is_dir())
+
 sections = [overview()]
 for channel in ("stable", "nightly"):
     body = f"<p>{esc(about[channel])}</p>"
@@ -268,8 +272,14 @@ pre{{background:#f4f4f4;padding:.75rem;overflow-x:auto}}td,th{{padding:.1rem .6r
 each on its own: subscribe to <code>stable</code>, <code>nightly</code> or both.
 On Windows, use the <a href="https://github.com/xiongnemo/windows-binaries-scoop-bucket">Scoop bucket</a> instead:</p>
 <pre>scoop bucket add nemo https://github.com/xiongnemo/windows-binaries-scoop-bucket</pre>
+<p>Browse the files: {browse}</p>
 {chr(10).join(sections)}
 """
 (site / "index.html").write_text(page)
 PY
 echo "$apk_key.pub" > "$site/keys/apk-key-name"
+
+# -- directory listings ---------------------------------------------------------
+echo "== directory listings"
+
+python3 "$(dirname "$0")/listing.py" "$site"

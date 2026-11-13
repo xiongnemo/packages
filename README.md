@@ -20,6 +20,10 @@ Indices are rebuilt from the Releases on every run, and every hash in them is
 computed here from the downloaded file and checked against the digest GitHub
 reports, never taken from the publishing project.
 
+Every directory also gets a generated `index.html` listing it, packages
+included, for people browsing the site; it says no package manager reads it
+and points at the setup steps ([`scripts/listing.py`](scripts/listing.py)).
+
 ## Using it
 
 ```sh
