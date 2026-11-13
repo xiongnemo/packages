@@ -26,16 +26,16 @@ reports, never taken from the publishing project.
 # apt (Debian, Ubuntu)
 sudo curl -fsSLo /usr/share/keyrings/nemo.gpg https://package.anzupop.com/keys/nemo-packages.gpg
 echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] https://package.anzupop.com/apt nightly main" | sudo tee /etc/apt/sources.list.d/nemo.list
-sudo apt update && sudo apt install saki nermius nemosh gp-socks tsumugi rj-socks
+sudo apt update && sudo apt install saki nermius nemosh gp-socks tsumugi rj-socks conch
 
 # dnf (Fedora, RHEL and derivatives)
 sudo curl -fsSLo /etc/yum.repos.d/nemo-nightly.repo https://package.anzupop.com/rpm/nemo-nightly.repo
-sudo dnf install saki nermius nemosh gp-socks tsumugi rj-socks
+sudo dnf install saki nermius nemosh gp-socks tsumugi rj-socks conch
 
 # apk (Alpine)
 wget -qO /etc/apk/keys/nemo-packages.rsa.pub https://package.anzupop.com/keys/nemo-packages.rsa.pub
 echo https://package.anzupop.com/apk/nightly >> /etc/apk/repositories
-apk update && apk add saki nermius nemosh gp-socks tsumugi rj-socks
+apk update && apk add saki nermius nemosh gp-socks tsumugi rj-socks conch
 ```
 
 ```sh
@@ -44,7 +44,7 @@ sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pub https://package.anz
 echo /opt/local/share/macports/nemo-macports.pub | sudo tee -a /opt/local/etc/macports/pubkeys.conf
 # add above the [default] line of /opt/local/etc/macports/sources.conf:
 #   https://package.anzupop.com/macports/nightly/ports.tar
-sudo port sync && sudo port install saki nermius nemosh gp-socks tsumugi rj-socks
+sudo port sync && sudo port install saki nermius nemosh gp-socks tsumugi rj-socks conch
 ```
 
 A MacPorts tree holds one version per port, so each channel's tree has the
@@ -118,7 +118,7 @@ artifact of the run.
 
 ## Testing
 
-`test` installs `saki`, `nermius`, `nemosh`, `gp-socks`, `tsumugi` and `rj-socks` from the built site on Debian, Ubuntu
+`test` installs `saki`, `nermius`, `nemosh`, `gp-socks`, `tsumugi`, `rj-socks` and `conch` from the built site on Debian, Ubuntu
 22.04/24.04, Fedora, Rocky Linux 9 and Alpine 3.21/3.24 (apk-tools 2 and 3),
 amd64 and arm64. [`scripts/serve.py`](scripts/serve.py) serves the site and
 applies its `_redirects` the way Pages does, so each package really is fetched

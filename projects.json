@@ -29,6 +29,11 @@
       "repo": "xiongnemo/ruijie-sslvpn-socks5", "keep": 3, "scoop": true,
       "description": "Ruijie SSL VPN as a local SOCKS5 proxy, without a TUN device.",
       "macports": { "port": "rj-socks", "binary": "rj-socks", "category": "net" }
+    },
+    {
+      "repo": "xiongnemo/conch", "keep": 3, "scoop": true,
+      "description": "Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.",
+      "macports": { "port": "conch", "binary": "conch", "category": "net" }
     }
   ]
 }
