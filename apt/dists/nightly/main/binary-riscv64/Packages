@@ -1,0 +1,109 @@
+Package: conch
+Architecture: riscv64
+Version: 0.0.1
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 12994
+Filename: pool/xiongnemo/conch/v0.0.1/conch_0.0.1_linux_riscv64.deb
+Size: 5582880
+MD5sum: f0c95e53f6fb5d37cba811b28ed7b6bb
+SHA1: e7b2c29a725771c4e92f67b98e04d88f8fb48cbc
+SHA256: c91af779d69e2f0686dbcba2c7ef15de9e11fdc8a8c430e57d475e8336f13bb8
+SHA512: 902e1599b1e1a91a2b62e6bc723a8f17eec8fc5e3ae3e4b34c9b2454f7fc38dc01052ea632ac94e070257bb12fa61f9631856c9e02172aabf87068abb7ac9209
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: riscv64
+Version: 0.0.2~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 12994
+Filename: pool/xiongnemo/conch/v0.0.2-main-ee826c2186c7/conch_0.0.2-main-ee826c2186c7_linux_riscv64.deb
+Size: 5582772
+MD5sum: bfe4489ff733ffbabd0e7b1824731f3b
+SHA1: 929c48528890bbd98c90ca143a9fa964f28a46a1
+SHA256: 95762fb4fa3a1317f313f3467c2952f91b6403f7fd541628e55c56cdb7a07ece
+SHA512: 4d233aa573ed8a7d2eb3e504cfd038b304b26a883a28de95587763c2512b19bce1093a52da91630897dd3ec7d0c3cf41a5b671ebf05d6e117575fd5417d48a64
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: gp-socks
+Architecture: riscv64
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14589
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-riscv64.deb
+Size: 7794928
+MD5sum: 6ccb892212668c99778516923f4aba29
+SHA1: 6ce16e0b65dacc84626a583e25dce1c72ea5ed60
+SHA256: 3d2f725bb3e27aee9d03eba635a198b33226ea7289a81ef7816217a853bf7f59
+SHA512: 3a3c9a2562b0bfee7bd92f1dfe57d5c755b50ecbd66ddfbdc57ce1db1c289d4268edba2c71ff59c0c58a3a949ab7e1cad07c817ff8fce6a0d5f74e2829aa8ba6
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: nermius
+Architecture: riscv64
+Version: 0.0.30-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12608
+Filename: pool/xiongnemo/nermius/v0.0.30-dev-3e714a6e2e58/nermius-linux-riscv64.deb
+Size: 5400898
+MD5sum: 9d2c5f08c090effff4780d3e2e183e14
+SHA1: a803c76786930579468456b6493dbe15df57d858
+SHA256: 29615ca80d711294e8099017542c59b0a9196ef1aec099a2a2b4df46c5ed062b
+SHA512: f2d72c1847ecb0f1afbc3fd0839e34a21386cba99ad8ce20871de19d44202ce1702e964926ea9d1bc35695c3503ef16bb309dab0a8dd2ad8cc0e00ff7e16dc87
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: riscv64
+Version: 0.0.32~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12608
+Filename: pool/xiongnemo/nermius/v0.0.32-dev-59b60eb78fd0/nermius-linux-riscv64.deb
+Size: 5400920
+MD5sum: 1b3a6fa769000161066ba49d38090894
+SHA1: be006f86cc7eb753aa476733ddd34e368066ee04
+SHA256: 16e2be2efcb83a31824c639bb724d96cbb03885adb24315102bf3434c80ea4bd
+SHA512: 4aa4d06c21ad2bbc91bd270e886ef32fa04762403c893ebbcfad6e527f7d39ab8c0239e90a199fa17477626d035e3253dfe20da04bacee4cbaa6775df602eea3
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: riscv64
+Version: 0.0.33~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12608
+Filename: pool/xiongnemo/nermius/v0.0.33-dev-0786ecbdf09c/nermius-linux-riscv64.deb
+Size: 5405440
+MD5sum: ff99cd0654627b17646b54d0fedc658d
+SHA1: c5791cc9b0eb37bb91ba96c164307f7b6c93669e
+SHA256: 66995535392292d0c48a39ab8c3f11c39983b118fd0bc48b8cd06d75b2eca4f8
+SHA512: b6e00a5955f76ee0b3531431c4dda45450b9f98ce4c60034666fb5dc42578dd93a752f304caf551e150980d2a686ace2bf55d98b85d819b5d8ddce997fb0d945
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: rj-socks
+Architecture: riscv64
+Version: 1.0.1~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 9480
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.1-dev-5df1ba56333f/rj-socks_v1.0.1-dev-5df1ba56333f_linux_riscv64.deb
+Size: 4164824
+MD5sum: c2eeae60265d3fe677cce87a2b49565e
+SHA1: 955ad6b850c989e8181250ee0613a7dd0c7c286b
+SHA256: 0aa21d33257b52de73b424e5e3c2bb8efba2c4417dc7b5dde2b2f9ab77719425
+SHA512: 32573f0101707d628cb40f32703a6d4419986ae2c76afbbc1ae33fb23361497d59a8490ab5d73e2ef0726e08f4e1566112782e2cdb412e903054109f5ef346fa
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.1-dev-5df1ba56333f).

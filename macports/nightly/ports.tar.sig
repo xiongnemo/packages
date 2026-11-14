@@ -1,0 +1,2 @@
+untrusted comment: verify with macports.pub
+RWQ6qJ6wYfFcdRNMrNonRpgkZ36BRm9hXQ8MFuh3LPQ7KslQ+/UerCPd8LfA7ZNdfmoF3LjD4K4TS9Fuca3o90WeBFXjpGJZzwk=

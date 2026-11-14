@@ -1,0 +1,29 @@
+Package: conch
+Architecture: mipsel
+Version: 0.0.1
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 15618
+Filename: pool/xiongnemo/conch/v0.0.1/conch_0.0.1_linux_mipsle_softfloat.deb
+Size: 5375580
+MD5sum: 4c40830c9b4c9c41eaa17c58d94c1a3a
+SHA1: f7b49f68ae9323e60766fb225abc040ba69f2262
+SHA256: a1cecd2eb69d73c7932e62068ead809237f42ab05a39d8a8192b3552a5baf65c
+SHA512: 3a5b278c240d0e76cb91d6eceecc86ba5026265f47bccfe1ee8f5f6612b759f6977825dc9e888567221fba1311129c5609990b9d58a7dac75af17c0af1c1fc1e
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: mipsel
+Version: 0.0.2~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 15618
+Filename: pool/xiongnemo/conch/v0.0.2-main-ee826c2186c7/conch_0.0.2-main-ee826c2186c7_linux_mipsle_softfloat.deb
+Size: 5375694
+MD5sum: 5874ea326a94167ab50092971784762a
+SHA1: e5e7e574f4dd295dc2554eb76686f8af1ba11f50
+SHA256: 6178d132f61e03cf9f89d033fdcf55a9dffbeddf83769cdbd14a2b34867dfb21
+SHA512: 99af803e932f6970c5581b6a7e5366ce925211fdf0cb188d536a57ad694668e5afbffd7c09def3784defe9e80ff9e7d02001fbe10c726a72ca27e7f1c542696e
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
