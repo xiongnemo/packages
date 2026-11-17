@@ -112,7 +112,11 @@ prerelease flag, nothing else.
 
 A dispatch for a project marked `"scoop": true` in `projects.json` is passed on
 to the [Scoop bucket](https://github.com/xiongnemo/windows-binaries-scoop-bucket)'s
-Excavator, once GitHub's releases list shows the release's Windows asset. This
+Excavator, once GitHub's releases list shows the release's Windows asset. That
+is [its own workflow](.github/workflows/scoop.yml), outside Publish's
+concurrency group: GitHub cancels a pending Publish run when the next one
+queues, which costs the index nothing (every run rebuilds it) but used to drop
+that release's Scoop dispatch. This
 needs `SCOOP_BUCKET_TOKEN`: a fine-grained token with **Actions: read and write**
 on the bucket. Without it the bucket's hourly sweep is the only update.
 
