@@ -159,7 +159,7 @@ def main():
                 member = executable_in(path, config["binary"]) if asset["name"].endswith(".tar.gz") else None
                 files[arch] = (asset["name"], digest, path.stat().st_size, member)
                 manifest.append({"repo": repo, "tag": tag, "channel": channel, "format": "macports",
-                                 "asset": asset["name"], "sha256": digest, "size": path.stat().st_size,
+                                 "arch": arch, "asset": asset["name"], "sha256": digest, "size": path.stat().st_size,
                                  "url": f"https://github.com/{repo}/releases/download/{tag}/{asset['name']}"})
             target = work / f"macports-{channel}" / "ports" / config["category"] / config["port"] / "Portfile"
             target.parent.mkdir(parents=True, exist_ok=True)

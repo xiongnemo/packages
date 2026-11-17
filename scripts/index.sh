@@ -167,13 +167,16 @@ done
 # -- landing page -------------------------------------------------------------
 echo "== landing page"
 
-python3 - "$site" "$site_url" "$apk_key.pub" "$(dirname "$0")/../projects.json" <<'PY'
-import html, json, sys
+python3 - "$site" "$site_url" "$apk_key.pub" "$(dirname "$0")/../projects.json" "$work/scoop.json" <<'PY'
+import gzip, html, json, sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 site, url, apk_key = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
 projects = json.loads(Path(sys.argv[4]).read_text())["projects"]
 manifest = json.loads((site / "manifest.json").read_text())
+# What the Scoop bucket installs, read by scripts/scoop.py; absent in a local run.
+scoop = json.loads(Path(sys.argv[5]).read_text()) if Path(sys.argv[5]).exists() else []
 esc = html.escape
 about = {
     "stable": "Releases: an exact version tag, published as a release.",
@@ -227,8 +230,11 @@ def table(channel):
 def overview():
     """One row per project: its repository, what to install, the newest tag per channel."""
     def newest(repo, channel):
-        # collect.py lists each project's releases newest first.
+        # collect.py lists each project's releases newest first. A project with
+        # nothing indexed here (Windows only) shows what its Scoop app installs.
         tag = next((p["tag"] for p in manifest if p["repo"] == repo and p["channel"] == channel), None)
+        if tag is None:
+            tag = next((a["tag"] for a in scoop if a["repo"] == repo and a["channel"] == channel and a["tag"]), None)
         if tag is None:
             return "&mdash;"
         return f"<a href=\"https://github.com/{esc(repo)}/releases/tag/{esc(tag)}\">{esc(tag)}</a>"
@@ -239,6 +245,8 @@ def overview():
         names = sorted({p["package"] for p in manifest if p["repo"] == repo and "package" in p})
         if not names and "macports" in project:
             names = [project["macports"]["port"]]
+        if not names:
+            names = sorted({a["app"].removesuffix("-nightly") for a in scoop if a["repo"] == repo})
         rows.append(
             f"<tr><td><a href=\"https://github.com/{esc(repo)}\">{esc(repo.split('/')[1])}</a></td>"
             f"<td>{', '.join(f'<code>{esc(n)}</code>' for n in names) or '&mdash;'}</td>"
@@ -248,11 +256,70 @@ def overview():
     return f"<h2>Projects</h2>\n<table class=\"projects\">{head}\n" + "\n".join(rows) + "</table>"
 
 
+def served():
+    """{column: {repo: {arch}}}: the architectures each package manager is offered.
+
+    apt and dnf are read back from the indices just built, because Release
+    asset names do not reliably spell the package's architecture; apk and
+    MacPorts from what collect.py and macports.py recorded; Scoop from the
+    bucket's manifests.
+    """
+    found = {column: {} for column in ("apt", "dnf", "apk", "macports", "scoop")}
+
+    def add(column, repo, arch):
+        found[column].setdefault(repo, set()).add(arch)
+
+    for packages in site.glob("apt/dists/*/main/binary-*/Packages"):
+        for stanza in packages.read_text().split("\n\n"):
+            fields = dict(l.split(": ", 1) for l in stanza.splitlines() if ": " in l and not l.startswith(" "))
+            if "Filename" in fields:  # pool/<owner>/<repo>/<tag>/<asset>
+                add("apt", "/".join(fields["Filename"].split("/")[1:3]), fields["Architecture"])
+    common = {"c": "http://linux.duke.edu/metadata/common"}
+    for primary in site.glob("rpm/*/repodata/*primary.xml.gz"):
+        for package in ET.fromstring(gzip.decompress(primary.read_bytes())).findall("c:package", common):
+            href = package.find("c:location", common).get("href")  # <owner>/<repo>/releases/download/...
+            add("dnf", "/".join(href.split("/")[:2]), package.findtext("c:arch", namespaces=common))
+    for p in manifest:
+        if p["format"] in ("apk", "macports"):
+            add(p["format"], p["repo"], p["arch"])
+    for a in scoop:
+        for arch in a["arches"]:
+            add("scoop", a["repo"], arch)
+    return found
+
+
+def matrix():
+    """One row per project, one column per package manager, each cell the architectures it gets."""
+    found = served()
+    first = ["amd64", "x86_64", "x64", "arm64", "aarch64"]
+
+    def cell(column, repo):
+        arches = sorted(found[column].get(repo, ()), key=lambda a: (first.index(a) if a in first else len(first), a))
+        return " ".join(esc(a) for a in arches) or "&mdash;"
+
+    columns = [("apt", "apt", "Debian, Ubuntu"), ("dnf", "dnf", "Fedora, RHEL"), ("apk", "apk", "Alpine"),
+               ("macports", "MacPorts", "macOS"), ("scoop", "Scoop", "Windows")]
+    head = "<tr><th>Project</th>" + "".join(f"<th>{label}<br><small>{system}</small></th>"
+                                            for _, label, system in columns) + "</tr>"
+    rows = "\n".join(
+        f"<tr><td><a href=\"https://github.com/{esc(p['repo'])}\">{esc(p['repo'].split('/')[1])}</a></td>"
+        + "".join(f"<td>{cell(column, p['repo'])}</td>" for column, _, _ in columns) + "</tr>"
+        for p in projects)
+    return f"""<h2>Support matrix</h2>
+<p>The architectures each package manager is offered, as it names them, on either channel.</p>
+<table class="projects">{head}
+{rows}</table>
+<p><small>The test jobs install the nightly packages on Debian and Fedora (amd64 and arm64), Ubuntu 22.04
+and 24.04 and Rocky Linux 9 (amd64), and Alpine 3.21 (amd64) and 3.24 (amd64 and arm64), and the nightly
+ports on arm64 and Intel Macs. The other architectures are built by each project and indexed here without
+being installed, and the Scoop apps are not installed here.</small></p>"""
+
+
 # The trees scripts/listing.py gives directory pages, at the end of this script.
 browse = " &middot; ".join(f"<a href=\"{d}/\">{d}/</a>" for d in ("apt", "rpm", "apk", "macports", "keys")
                            if (site / d).is_dir())
 
-sections = [overview()]
+sections = [overview(), matrix()]
 for channel in ("stable", "nightly"):
     body = f"<p>{esc(about[channel])}</p>"
     if any(p["channel"] == channel for p in manifest):

@@ -18,6 +18,10 @@ the downloaded file, never one the publishing repository declared.
 
 `--include` names a release a dispatch announced. It is fetched by tag, because
 the releases list has lagged a fresh upload by hours.
+
+A project marked `"windows_only": true` is skipped: it is listed in
+PROJECTS_JSON for the landing page and for passing its dispatches on to Scoop,
+and the packages its older releases still carry must not be offered as current.
 """
 
 import gzip
@@ -97,6 +101,8 @@ def main():
     manifest, redirects = [], []
 
     for project in json.loads(projects_file.read_text())["projects"]:
+        if project.get("windows_only"):
+            continue
         repo, keep = project["repo"], project.get("keep", 3)
         owner, name = repo.split("/")
         per_channel = {"nightly": 0, "stable": 0}

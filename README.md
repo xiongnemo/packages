@@ -30,16 +30,16 @@ and points at the setup steps ([`scripts/listing.py`](scripts/listing.py)).
 # apt (Debian, Ubuntu)
 sudo curl -fsSLo /usr/share/keyrings/nemo.gpg https://package.anzupop.com/keys/nemo-packages.gpg
 echo "deb [signed-by=/usr/share/keyrings/nemo.gpg] https://package.anzupop.com/apt nightly main" | sudo tee /etc/apt/sources.list.d/nemo.list
-sudo apt update && sudo apt install saki nermius nemosh gp-socks tsumugi rj-socks conch
+sudo apt update && sudo apt install saki nermius gp-socks tsumugi rj-socks conch
 
 # dnf (Fedora, RHEL and derivatives)
 sudo curl -fsSLo /etc/yum.repos.d/nemo-nightly.repo https://package.anzupop.com/rpm/nemo-nightly.repo
-sudo dnf install saki nermius nemosh gp-socks tsumugi rj-socks conch
+sudo dnf install saki nermius gp-socks tsumugi rj-socks conch
 
 # apk (Alpine)
 wget -qO /etc/apk/keys/nemo-packages.rsa.pub https://package.anzupop.com/keys/nemo-packages.rsa.pub
 echo https://package.anzupop.com/apk/nightly >> /etc/apk/repositories
-apk update && apk add saki nermius nemosh gp-socks tsumugi rj-socks conch
+apk update && apk add saki nermius gp-socks tsumugi rj-socks conch
 ```
 
 ```sh
@@ -48,7 +48,7 @@ sudo curl -fsSLo /opt/local/share/macports/nemo-macports.pub https://package.anz
 echo /opt/local/share/macports/nemo-macports.pub | sudo tee -a /opt/local/etc/macports/pubkeys.conf
 # add above the [default] line of /opt/local/etc/macports/sources.conf:
 #   https://package.anzupop.com/macports/nightly/ports.tar
-sudo port sync && sudo port install saki nermius nemosh gp-socks tsumugi rj-socks conch
+sudo port sync && sudo port install saki nermius gp-socks tsumugi rj-socks conch
 ```
 
 A MacPorts tree holds one version per port, so each channel's tree has the
@@ -86,6 +86,17 @@ listed in [`projects.json`](projects.json), with how many releases per channel
 to keep and the one-line description the landing page's project list shows.
 Prereleases are `nightly`, the rest `stable`.
 
+A project marked `"windows_only": true` (nemosh, since 2026-11-17) is not
+indexed for apt, dnf, apk or MacPorts, even where older releases still carry
+packages: it is listed for the landing page and to pass its dispatches on to
+Scoop.
+
+The landing page's support matrix shows, per project, the architectures apt,
+dnf, apk, MacPorts and Scoop are offered. apt and dnf are read back from the
+built indices, because Release asset names do not reliably spell a package's
+architecture; Scoop's come from the bucket's manifests
+([`scripts/scoop.py`](scripts/scoop.py)).
+
 The dispatching repository needs a `PACKAGES_DISPATCH_TOKEN` secret: a
 fine-grained token with **Contents: read and write** on this repository.
 
@@ -122,7 +133,7 @@ artifact of the run.
 
 ## Testing
 
-`test` installs `saki`, `nermius`, `nemosh`, `gp-socks`, `tsumugi`, `rj-socks` and `conch` from the built site on Debian, Ubuntu
+`test` installs `saki`, `nermius`, `gp-socks`, `tsumugi`, `rj-socks` and `conch` from the built site on Debian, Ubuntu
 22.04/24.04, Fedora, Rocky Linux 9 and Alpine 3.21/3.24 (apk-tools 2 and 3),
 amd64 and arm64. [`scripts/serve.py`](scripts/serve.py) serves the site and
 applies its `_redirects` the way Pages does, so each package really is fetched

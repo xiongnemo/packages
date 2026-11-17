@@ -25,13 +25,12 @@ grep -v '^#' "$conf/sources.conf" | grep .
 # output is on, which needs a terminal, so a sync without one fails with
 # `can't read "verboseflag"` (fixed on macports-base master).
 sudo port -N -v sync
-port info --version --platforms saki nermius nemosh gp-socks tsumugi rj-socks conch
-sudo port -N install saki nermius nemosh gp-socks tsumugi rj-socks conch
-port installed saki nermius nemosh gp-socks tsumugi rj-socks conch
+port info --version --platforms saki nermius gp-socks tsumugi rj-socks conch
+sudo port -N install saki nermius gp-socks tsumugi rj-socks conch
+port installed saki nermius gp-socks tsumugi rj-socks conch
 
 "$prefix/bin/saki" --version
 "$prefix/bin/nermius" version
-"$prefix/bin/nemosh" --version
 "$prefix/bin/tsumugi" --version
 "$prefix/bin/rj-socks" -version
 "$prefix/bin/conch" version
@@ -39,4 +38,4 @@ port installed saki nermius nemosh gp-socks tsumugi rj-socks conch
 # a variable rather than piped to grep -q, which would SIGPIPE it under pipefail.
 usage=$("$prefix/bin/gp-socks" --help 2>&1 || true)
 grep -q "Usage of gp-socks" <<< "$usage"
-file "$prefix/bin/saki" "$prefix/bin/nermius" "$prefix/bin/nemosh" "$prefix/bin/gp-socks" "$prefix/bin/tsumugi" "$prefix/bin/rj-socks" "$prefix/bin/conch"
+file "$prefix/bin/saki" "$prefix/bin/nermius" "$prefix/bin/gp-socks" "$prefix/bin/tsumugi" "$prefix/bin/rj-socks" "$prefix/bin/conch"

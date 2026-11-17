@@ -11,9 +11,8 @@
       "macports": { "port": "nermius", "binary": "nermius", "category": "net" }
     },
     {
-      "repo": "xiongnemo/nemosh", "keep": 3, "scoop": true,
-      "description": "BusyBox-style shell and applets in one executable.",
-      "macports": { "port": "nemosh", "binary": "nemosh", "category": "shells", "license": "Apache-2", "description": "BusyBox-style shell and applets in one executable. Windows is its supported platform; this macOS build is a convenience and is not supported." }
+      "repo": "xiongnemo/nemosh", "keep": 3, "scoop": true, "windows_only": true,
+      "description": "BusyBox-style shell and applets in one Windows executable."
     },
     {
       "repo": "xiongnemo/Tsumugi", "keep": 3, "scoop": true,
