@@ -186,10 +186,13 @@ jobs:
   # project only has to notify one place. It runs beside the index build, not
   # after it, so a broken index never holds Scoop back.
   #
-  # It waits until GitHub's releases *list* shows a Windows asset of the release,
-  # because the bucket's checkver reads that list, and on 2026-09-23 the list
-  # lagged a finished upload by hours: a dispatch sent before then packages
-  # nothing and still reports success.
+  # It waits until GitHub's releases *list* shows the release's windows/amd64
+  # asset, because the bucket's checkver reads that list, and on 2026-09-23 the
+  # list lagged a finished upload by hours: a dispatch sent before then packages
+  # nothing and still reports success. Every project the bucket carries builds
+  # windows/amd64 (spelled windows-amd64 or windows_amd64), and most nightly
+  # checkvers look for exactly that asset, so another Windows asset showing
+  # first (nemosh's 386 sorts before amd64) is not enough.
   scoop:
     name: Tell the Scoop bucket
     if: github.event_name == 'repository_dispatch'
@@ -218,9 +221,9 @@ jobs:
           visible=false
           for attempt in $(seq 1 20); do
             if GH_TOKEN="$READ_TOKEN" gh api "repos/${REPO}/releases?per_page=10" \
-                --jq ".[] | select(.tag_name == \"${TAG}\") | .assets[].name" | grep -qi windows; then
+                --jq ".[] | select(.tag_name == \"${TAG}\") | .assets[].name" | grep -qiE 'windows[-_]amd64'; then
               visible=true
-              echo "the releases list shows ${TAG}'s Windows asset (check ${attempt})"
+              echo "the releases list shows ${TAG}'s windows/amd64 asset (check ${attempt})"
               break
             fi
             sleep 15
