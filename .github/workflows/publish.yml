@@ -112,7 +112,9 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/serve.py site 8080 > server.log 2>&1 &
-          sleep 1
+          # Until it answers, not a fixed second: on 2026-11-21 the Intel Mac
+          # runner was still starting it after one. Any HTTP reply will do.
+          for _ in $(seq 50); do curl -so /dev/null http://127.0.0.1:8080/ && break; sleep 0.2; done
           status=0
           docker run --rm --network host -e BASE=http://127.0.0.1:8080 -e APK_KEY="$(cat site/keys/apk-key-name)" \
             "${{ matrix.image }}" sh -euc '
@@ -173,7 +175,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/serve.py site 8080 > server.log 2>&1 &
-          sleep 1
+          for _ in $(seq 50); do curl -so /dev/null http://127.0.0.1:8080/ && break; sleep 0.2; done
           status=0
           bash scripts/test-macports.sh http://127.0.0.1:8080 || status=$?
           echo "== requests"
