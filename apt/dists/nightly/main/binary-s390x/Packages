@@ -1,0 +1,63 @@
+Package: gp-socks
+Architecture: s390x
+Version: 0.0.12-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 15924
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.12/gp-socks-v0.0.12-linux-s390x.deb
+Size: 8096072
+MD5sum: 8a07d5d9e0856b58138e5ab76f6de543
+SHA1: dd93c4bb7e1014f7c48889af525568030adc5665
+SHA256: 2cfab55c62703595310c957b5a1d8032bdfa22c7a6c8000e7131db0be4e89d46
+SHA512: e0fc15e6a7df18e91645883e7b7adc1afc69d4320cb17c4cc3ed6f27b8fab0ef784a0274881e04e18f78f702031d233381c5d096ff7460c032d23d73862a7756
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: gp-socks
+Architecture: s390x
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 15665
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-s390x.deb
+Size: 7976038
+MD5sum: dc64464a3d6ca5838002776b5860b1d7
+SHA1: 8123406ad2fbb0d8a19ada9569b9e5a31284cff1
+SHA256: 95bddf57f49dad5f076f1b60a06e685ee45212bcbf34ad66ce51572f07d559c2
+SHA512: 5745f0d56ccb345b0c49ace80f520b24659cc68d28235c303cac8dfe777acfdc6840837ea2e5d1d004e69d0c3d4c10d96acfc8d99267eca4ded35f4d8f78f236
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: rj-socks
+Architecture: s390x
+Version: 1.0.1~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 10952
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.1-dev-5df1ba56333f/rj-socks_v1.0.1-dev-5df1ba56333f_linux_s390x.deb
+Size: 4260854
+MD5sum: d98ab642325d2b292a2505a972f8522e
+SHA1: a852785a543893fb384141d3dc0a6265fa33eed7
+SHA256: cea6ba919b272026eed98c4ce857341806aee71924a74a97083d2e113b377755
+SHA512: 6e3cf2ed2d761038c47ab4bfda5d3ea136410be6386798b7b5c8c465bce2f73cb628623b0cf71d4ec9529c1be0e712b0ab70326842d987a2271b91e8339aaf31
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.1-dev-5df1ba56333f).
+
+Package: rj-socks
+Architecture: s390x
+Version: 1.0.4~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 10955
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.4-dev-e80962a2ed02/rj-socks_v1.0.4-dev-e80962a2ed02_linux_s390x.deb
+Size: 4277256
+MD5sum: d1d9512cfb4444ab9ef882a1e37fed95
+SHA1: 00757b05eed1931ab42588f8f167abe4ff04f1ed
+SHA256: ee924f5a3930faa80b547f2ea82a4b7f2a3a2339c1cc6b62cfc9cc56998f9630
+SHA512: bf1a5d9e810ff96c7c72ccfd3b5da770938d49bcf9123e8443ef695d1cee1d5f63a379aac0932c89bf92155708c68f1e7aeb5a019ebcdfa623c69c042e969b77
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.4-dev-e80962a2ed02).

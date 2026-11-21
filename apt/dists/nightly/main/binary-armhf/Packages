@@ -1,0 +1,156 @@
+Package: conch
+Architecture: armhf
+Version: 0.0.29~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 16834
+Filename: pool/xiongnemo/conch/v0.0.29-main-099f7f9ef9c7/conch_0.0.29-main-099f7f9ef9c7_linux_armv7.deb
+Size: 6702088
+MD5sum: 0d9dd9623d4474c94910f37d22137113
+SHA1: b2adcd3588d4765d5f2b47fadf93bafecc30278b
+SHA256: 0a03eb63dadd622ee2305563ca40e1a8f8afbb74fe1f41893dc5cf8fa1ea6515
+SHA512: da77b03eef281b277e9d8fac36776db2ab0eb08120cc4f2136e30e9e0766c4d3437a5240182247ce0e5f8efd7d7edcd7d41f7d0759060f33090083420212e30d
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: armhf
+Version: 0.0.30~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 16834
+Filename: pool/xiongnemo/conch/v0.0.30-main-d4baf052147c/conch_0.0.30-main-d4baf052147c_linux_armv7.deb
+Size: 6706224
+MD5sum: 2760434431c5d1205a00c39a2633b408
+SHA1: 105cd86f8b092829895a929901bb4d5132856e40
+SHA256: 94fe792b92724b4fcbeb3714904260e2276a4b90fa5b64ba367574c8a14a2d60
+SHA512: 0313131c181240810ab1e32b572ef0efbb76244b156a9da9180ff242dc2f9762331e4919e41036f71ddc96f0b3a8be318e2734d797096ef67023c39938148f2d
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: armhf
+Version: 0.0.33~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 16962
+Filename: pool/xiongnemo/conch/v0.0.33-main-c5af0bcdad76/conch_0.0.33-main-c5af0bcdad76_linux_armv7.deb
+Size: 6757436
+MD5sum: 544ffb79850a83338dfe19717dca6f83
+SHA1: a0e734f43ae00aba8b7a818a3d34941ecc5a79fd
+SHA256: 4864333d6c77ff1946a29a28fed9c6de3a6d64d04054899847c78eec246ee1f9
+SHA512: c3fec242ec8bbe4eab3c3403a3d5b33757928afb34302a9fae0e23bd9ec0e892cbfa81f3885a307ab0aab3a2e111083adf5fcac00670814d530abcf690c07f5b
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: gp-socks
+Architecture: armhf
+Version: 0.0.12-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14358
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.12/gp-socks-v0.0.12-linux-arm.deb
+Size: 7761528
+MD5sum: 48db7b91e9afbf8d42edd0dd3b0519cd
+SHA1: 1d998f9ff1ba235d4f0f512fa023fd2aab84fff9
+SHA256: 810e1e987499456f43cfcc85ba09eb85eea0e38a5da07a65a5323627a4ef611e
+SHA512: dbf73c383e6b05633eb4f75ffdf4adcf6a64c811bd4e43105957800bb5f65e0efc61d7ed4c822947adf988c57a7c29f862aa4546265f0fe80961c618cf1a7077
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: gp-socks
+Architecture: armhf
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14173
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-arm.deb
+Size: 7655576
+MD5sum: 140a4e1a3c49fe02e9c2e53b95895376
+SHA1: c0b61951d0a9debdcf02ad0daffac5c0a6db9ede
+SHA256: 44a02a945861f8c25789e7fdb59d628499b49d3475226221e1277417ff0d50cf
+SHA512: 7a43aef26d6ae53a0facca4f2fe200b6518d32661ee15e0120ed1ce68a9eac3e9ff781f5e6edd45425a2d5ef15b8b1cc643bf1de3d60dcae3ef093102cc86aa8
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: nermius
+Architecture: armhf
+Version: 0.0.32~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12544
+Filename: pool/xiongnemo/nermius/v0.0.32-dev-59b60eb78fd0/nermius-linux-armv7.deb
+Size: 5374006
+MD5sum: 6ad48a3a61bd32ffeee361c6b600aa93
+SHA1: cb37ea25bf41b46ec96d1007735e406c921c1721
+SHA256: ffe48a09c73ca2b7cde22e6dbda74137ce5e95d514ece7083c19be1e718ce229
+SHA512: e07133211df695ea0c7147eaefe4c809e2872e0fd5bf9e1f0758e0ae07f453f80f64c9cd20178979e5ff1f62f9c2d59d54c0e08fc7ae5cdc67baf21c941e8811
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: armhf
+Version: 0.0.33~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12544
+Filename: pool/xiongnemo/nermius/v0.0.33-dev-0786ecbdf09c/nermius-linux-armv7.deb
+Size: 5380484
+MD5sum: b531c910dfa89ff023f5d85221dc62e8
+SHA1: c009683c84d9a9cba2cac0ca4c2f304b7362afa0
+SHA256: 6af6beccdb02472b36a978de9411b7c8f6d7e3212b6dec530f7b908eb99522d8
+SHA512: cc15911c33f5fdc25e277c26f487169637e3abe4e5cbb799fa684e1bcc67ba7d83be193df44149b5f489779fa1504e15d8f15cab85f0142f3ca1ec8c98ebed9a
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: armhf
+Version: 0.0.39~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12672
+Filename: pool/xiongnemo/nermius/v0.0.39-dev-02a89ac43d86/nermius-linux-armv7.deb
+Size: 5402878
+MD5sum: 98f11b57651a77242665ce822fe918c2
+SHA1: 5eb174f6070f689c8fcc6a980db4d78e36b72455
+SHA256: 1a64286ada9ce601649a4fcac3d1786f7a57c7b0981d9d79ef76f6ead4a6a692
+SHA512: 68ff75f4a21a9694c68131043372a372d5e801856cc17f4bda226d439c9c4760bb54a4a83316353d7b50716cd80a62400d31359a5777d488d75c2e116a6a940b
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: rj-socks
+Architecture: armhf
+Version: 1.0.1~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 10184
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.1-dev-5df1ba56333f/rj-socks_v1.0.1-dev-5df1ba56333f_linux_armv7.deb
+Size: 4233596
+MD5sum: 514a7aa6996e67ced4fb5117985bb391
+SHA1: 3cf7c3d6584ed6787bfee7de231c9a2bf422816c
+SHA256: 057deb79de8346bd455afb9e4c79578f4f5e6558084d84bbf6d28109ee7e7183
+SHA512: b633cfd3328ae50007622b6e5ce0d82d5c8288e5e25ad46af0db52253d3d9b9e7e6f966e1f4c1b05f717106e534252f59c6e1fee78dcba6a70d89d5e221ab702
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.1-dev-5df1ba56333f).
+
+Package: rj-socks
+Architecture: armhf
+Version: 1.0.4~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 10315
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.4-dev-e80962a2ed02/rj-socks_v1.0.4-dev-e80962a2ed02_linux_armv7.deb
+Size: 4254678
+MD5sum: c37bb2dab572991d31bcc146f57de243
+SHA1: ee8973a4d74ab02b6d460b91e41731cc6069981e
+SHA256: d1f82e90470b4bbe19d2fc153f76c87b582ebfcb6f2edb3bb50f56eaf348e01f
+SHA512: c0dbb0aad05b5938726da42fd84a7b10d66706a88475053f5e3a6cd8dad0906ae570ffa8bcc262d229900c176b662431bdce956917d44b590c10f6dbfbd65c16
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.4-dev-e80962a2ed02).

@@ -1,0 +1,44 @@
+Package: conch
+Architecture: mipsel
+Version: 0.0.29~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 19074
+Filename: pool/xiongnemo/conch/v0.0.29-main-099f7f9ef9c7/conch_0.0.29-main-099f7f9ef9c7_linux_mipsle_softfloat.deb
+Size: 6369778
+MD5sum: dfc1ee9fe73e2b9ca8d09b576a0a8ed2
+SHA1: 93c88277415fe42b174653c34050176a45cbc124
+SHA256: ace93f26dfb7bd441e281cd40379186bedb6d70eba2ad09795d6f7757c5c7c95
+SHA512: b6e372845cfabf76c2ecb7c4a35756c3e664396f26471e4e3b6ae9381595c687d3f546258bfac7c91c25470ea2c5977cc4d11146c28052a2ab205afcd0588f07
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: mipsel
+Version: 0.0.30~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 19074
+Filename: pool/xiongnemo/conch/v0.0.30-main-d4baf052147c/conch_0.0.30-main-d4baf052147c_linux_mipsle_softfloat.deb
+Size: 6374680
+MD5sum: fd9d2faaf66cef7280c8bc6f49671c6d
+SHA1: 2889badda43cbdae3b9df39d6c5d1f4939f3a456
+SHA256: 55a61cafdcc27c886bd5003f054e5a093fa6658bdf234e05e2fb470d3363fec9
+SHA512: c5b0788b42d89527d4f5845b542bac5407be692601298335ff7e675c3a9a478ee2c711611c93e50e52dd0291797caa9eb0adaf9d040808864c54ca42fd28f20f
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: mipsel
+Version: 0.0.33~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 19138
+Filename: pool/xiongnemo/conch/v0.0.33-main-c5af0bcdad76/conch_0.0.33-main-c5af0bcdad76_linux_mipsle_softfloat.deb
+Size: 6421824
+MD5sum: f3fb40a0fa1eaf2ee4fb1c02d529cb2a
+SHA1: 8ee6501fa335c8b0552a90739ca3d8975f82e5c6
+SHA256: 353b6255513b04854924d0ec2e98b44c156ff1d941fee096ace69df211a1d4ba
+SHA512: f9caeeeb37d36d90647985de22a1b7a593a361dfecdc3de78637b62f57da2e891f5dc22557c32d92c096fef7bfcf1bd3ae185649e478df1ae8e02b41b1637294
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.

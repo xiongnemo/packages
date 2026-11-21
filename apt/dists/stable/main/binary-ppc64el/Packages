@@ -1,0 +1,15 @@
+Package: rj-socks
+Architecture: ppc64el
+Version: 1.0.0-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 10438
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.0/rj-socks_v1.0.0_linux_ppc64le.deb
+Size: 4029014
+MD5sum: 588ab66926d135ed3cd8b17652996287
+SHA1: 89b336a27e8ca0663f850b4bc4ded069885a8869
+SHA256: 81eda87ed8efbee0bd00e9ef9a9ce8c1d578aef85c4018c720e5765f8a54131f
+SHA512: 45861cdef43ea63791cb161df18924779eeeef7f9be1b8402065659ead534f702a077dc64defafa0a9344acce3900589fa67ed1777b73a48a941b4699504c3cb
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.0).

@@ -1,0 +1,7 @@
+[nemo-nightly]
+name=Nemo's Packages (nightly)
+baseurl=https://package.anzupop.com/rpm/nightly
+enabled=1
+gpgcheck=0
+repo_gpgcheck=1
+gpgkey=https://package.anzupop.com/keys/nemo-packages.asc
