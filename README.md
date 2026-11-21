@@ -86,10 +86,10 @@ listed in [`projects.json`](projects.json), with how many releases per channel
 to keep and the one-line description the landing page's project list shows.
 Prereleases are `nightly`, the rest `stable`.
 
-A project marked `"windows_only": true` (nemosh, since 2026-11-17) is not
-indexed for apt, dnf, apk or MacPorts, even where older releases still carry
-packages: it is listed for the landing page and to pass its dispatches on to
-Scoop.
+A project marked `"windows_only": true` (nemosh since 2026-11-17, and
+nemoterm) is not indexed for apt, dnf, apk or MacPorts, even where older
+releases still carry packages: it is listed for the landing page and to pass
+its dispatches on to Scoop.
 
 The landing page's support matrix shows, per project, the architectures apt,
 dnf, apk, MacPorts and Scoop are offered. apt and dnf are read back from the

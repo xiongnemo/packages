@@ -15,6 +15,10 @@
       "description": "BusyBox-style shell and applets in one Windows executable."
     },
     {
+      "repo": "xiongnemo/nemoterm", "keep": 3, "scoop": true, "windows_only": true,
+      "description": "Lightweight native Windows terminal: PuTTY's pterm with ConPTY built in."
+    },
+    {
       "repo": "xiongnemo/Tsumugi", "keep": 3, "scoop": true,
       "description": "Telegram TUI client, usable on a raw Linux console.",
       "macports": { "port": "tsumugi", "binary": "tsumugi", "category": "net" }
