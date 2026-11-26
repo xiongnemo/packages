@@ -24,7 +24,7 @@
       "macports": { "port": "tsumugi", "binary": "tsumugi", "category": "net" }
     },
     {
-      "repo": "xiongnemo/globalprotect-socks5", "keep": 3,
+      "repo": "xiongnemo/globalprotect-socks5", "keep": 3, "scoop": true,
       "description": "GlobalProtect VPN as a local SOCKS5 proxy, with SSO.",
       "macports": { "port": "gp-socks", "binary": "gp-socks", "category": "net" }
     },
