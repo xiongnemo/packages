@@ -1,0 +1,287 @@
+Package: saki
+Architecture: arm64
+Version: 1.0.1~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12850
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v1.0.1-dev-4c680af946e5/saki-v1.0.1-dev-4c680af946e5-linux-arm64.deb
+Size: 5488570
+MD5sum: a52c0bc86ab79ea64f043ee930bcdc9e
+SHA1: 8599bf51199b477ec2fe6dc5c1e620209ed3b45c
+SHA256: 39d76b410f1cd3e3dc520de38bc901030ad1fad8ad6f3255fc130de6a3af1fa8
+SHA512: 75b07caee6a5b9de07959d2b58b6e05a081e4a8a9b22349b20aa6402279246f562a9b89fb78979a351aa61871d6862c327a12965baa5741eaa2c4f9f8fdd598a
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v1.0.1-dev-4c680af946e5)
+
+Package: saki
+Architecture: arm64
+Version: 1.0.10~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12978
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v1.0.10-dev-c62b7d3aca48/saki-v1.0.10-dev-c62b7d3aca48-linux-arm64.deb
+Size: 5534266
+MD5sum: b9d2d0a989f287640fe1e70f4751de89
+SHA1: dc1a134dbf9b473cb19d0f1fa94e6a7185940979
+SHA256: ee843e5fb530c9d36e947f32b3e2cf703e6230dc77f402e29fb05ea2a2097451
+SHA512: 82db67796e400c0dbe451b56bac07fe95f283fe1b5f56f888b3dfb8e753ee67dde315f4a09d104415011871fca92399a7deed6e8626dfa558756b337b5326c31
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v1.0.10-dev-c62b7d3aca48)
+
+Package: saki
+Architecture: arm64
+Version: 1.0.13~pre-1
+Priority: optional
+Section: sound
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12978
+Depends: libasound2t64 | libasound2
+Filename: pool/xiongnemo/Saki/v1.0.13-dev-98aa7f64091f/saki-v1.0.13-dev-98aa7f64091f-linux-arm64.deb
+Size: 5534258
+MD5sum: ecbf12cc70c055e384a84ea6e9061396
+SHA1: f6b4ec8514b60478c64e79c266ca692cd92c96f7
+SHA256: 045f46b1e736bccedf1e36b4a34cb0357e74743ca6f2ee1e9a79e62bdba2c174
+SHA512: 777c112c71c28be8e4d3df4878df4d0f9e14a359ae3c2ca5a2d223f28fa54e0a1de4aec38df794b79fa16bbaf6aec7713bf4049946886cba99143c97a2ed49cd
+Homepage: https://github.com/xiongnemo/Saki
+Description: Terminal Subsonic music player (v1.0.13-dev-98aa7f64091f)
+
+Package: tsumugi
+Architecture: arm64
+Version: 0.1.65~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 21440
+Filename: pool/xiongnemo/Tsumugi/v0.1.65-dev-9b44d55636b4/tsumugi_v0.1.65-dev-9b44d55636b4_linux_arm64.deb
+Size: 7784316
+MD5sum: 1b41ce5cfa441a09402a9d7d75a93fd8
+SHA1: 563a4b0a8295cad1c6c1966e09b763b56fd44b2e
+SHA256: 890456c497d6c65dc96e28a3cf9b7299ac0eb1039d1560cfc30172b79e7b4ec2
+SHA512: 4e6acf2daccf11477e8ddff4f477eb41e17b2814c2849f55e46201bbee70e5848f780034e7c98b82389427005bd67cae33127c8155bd2c972db23aba5f358599
+Homepage: https://github.com/xiongnemo/Tsumugi
+Description: Telegram TUI client, usable on a raw Linux console (v0.1.65-dev-9b44d55636b4).
+
+Package: tsumugi
+Architecture: arm64
+Version: 0.1.69~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 21568
+Filename: pool/xiongnemo/Tsumugi/v0.1.69-dev-db5c5f9dbabf/tsumugi_v0.1.69-dev-db5c5f9dbabf_linux_arm64.deb
+Size: 7833920
+MD5sum: 3a84a4c5e3c9c5485ba9efc41710292b
+SHA1: f1fa8f98034037ab839c5da96050ac2f4496a60e
+SHA256: 8a9c6ab612605ddcf616e9ab8149f8060a18ff16ac84797ee891cb05eee14863
+SHA512: 2f1b63d2fc56f24e3a02a29d6a18bdc479e4054346e46cf5af271afcf77b560c1b82cafe9e88697e6fab517eb81e6503041cec111ef57a9f1ee8688917138fd5
+Homepage: https://github.com/xiongnemo/Tsumugi
+Description: Telegram TUI client, usable on a raw Linux console (v0.1.69-dev-db5c5f9dbabf).
+
+Package: tsumugi
+Architecture: arm64
+Version: 0.1.70~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 21568
+Filename: pool/xiongnemo/Tsumugi/v0.1.70-dev-f31ace0bfbc3/tsumugi_v0.1.70-dev-f31ace0bfbc3_linux_arm64.deb
+Size: 7833918
+MD5sum: cdb376bd4fba2243e557758feb461c63
+SHA1: caf7cef47abc0d1c30ade3f6bbb90f7539b091fd
+SHA256: d63f0ad7d120613a6b9eb1c354f67c0ce521fe2e3128df38b541d1ea12b4c668
+SHA512: bed0c39acc1b957942db9f5cc31f6e9d13ea69370bb8904ae7eca5da25bf83b6a7eec0277f920af894d33ff19ebad69da0eb5bf4fb38565919021254d9c00c44
+Homepage: https://github.com/xiongnemo/Tsumugi
+Description: Telegram TUI client, usable on a raw Linux console (v0.1.70-dev-f31ace0bfbc3).
+
+Package: conch
+Architecture: arm64
+Version: 0.0.30~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 16322
+Filename: pool/xiongnemo/conch/v0.0.30-main-d4baf052147c/conch_0.0.30-main-d4baf052147c_linux_arm64.deb
+Size: 6336258
+MD5sum: 82a412267b94d941961711695cf648f5
+SHA1: ed0450428b70b197378f0aff9b14c9c8c2f9ae4d
+SHA256: 3c2851989f1111b311ac0b5dbe455b948d9336031a8c9c12fc1b3adca7dc9270
+SHA512: 33b8574ed80387ffcc6b62cd62ec52156796c3832d08d4dc2131e664e8a9b42f70afe44e11f6e1a4f579cec83a19ed79cc04b127997e5d304ce29ec325d5ac07
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: arm64
+Version: 0.0.33~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 16450
+Filename: pool/xiongnemo/conch/v0.0.33-main-c5af0bcdad76/conch_0.0.33-main-c5af0bcdad76_linux_arm64.deb
+Size: 6380350
+MD5sum: 2a24e9b8ab054185102efd90abb2db12
+SHA1: 55122c697c772661dac5a06ed0af925e40b13ec1
+SHA256: ab0a8a0bd15484b6e76b168548ee766aab0dcd31446c35298190ec0fe226b706
+SHA512: bbaaa6d4e2e1e1e594ce9d0e7a0b003365fb9450e852e296ca0b888848e86cfa978f6dff3d8955309da820ea0450d47b30e79b0c78e254de91dd83551d5be626
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: conch
+Architecture: arm64
+Version: 0.0.34~pre
+Priority: optional
+Maintainer: Nemo Xiong <nemo@anzupop.com>
+Installed-Size: 16450
+Filename: pool/xiongnemo/conch/v0.0.34-main-685d2c2bdd06/conch_0.0.34-main-685d2c2bdd06_linux_arm64.deb
+Size: 6380344
+MD5sum: 34b74e6a47fa00ad26f3db40023e0268
+SHA1: 2992cc3fb67db59096d31c364f96d9fc41dfbdc2
+SHA256: af2bdbed1f993169c7bf4fbea04c6f21e1b3eb22a87a471174730542cbed24b4
+SHA512: e1c65c8bd226c192ec11fd5ae490c20f7241f9d8be66211cb0acc01a291ccda047d9d5c755000b54ea93946e35d871483e084f09e8bdf38c441e84e773f28cf2
+Homepage: https://github.com/xiongnemo/conch
+Description: Routing-table proxy shell with multi-hop chains, for the mihomo, xray and sing-box kernels.
+
+Package: gp-socks
+Architecture: arm64
+Version: 0.0.12-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14941
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.12/gp-socks-v0.0.12-linux-arm64.deb
+Size: 7886742
+MD5sum: 0a059325ffe0c42234640410bffdde3f
+SHA1: 38b6d22eeb897560b376c5e93c489b8a5b150125
+SHA256: 61b9797fae382d04bffa1c6c4f45260de6dd54be9a1b73ae225258811e221ece
+SHA512: a61c9a62fb524b4c9967db62db26ce20aec18bda08794164f4b4379ba54caddfec4661b9713756d18d213aeab3808f1ec9de73ff26ec13906900dacfdf85faed
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: gp-socks
+Architecture: arm64
+Version: 0.0.13-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14941
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.13/gp-socks-v0.0.13-linux-arm64.deb
+Size: 7886764
+MD5sum: b24cfa66941329fd8985f18e4997053d
+SHA1: 86c7a5d853a94477fe029b1efc4d04ae0261f898
+SHA256: 31e1dc6f47f2c9efc87c05ce631d0e3f4b1c39aeb7356c7a62303f49ef8aed51
+SHA512: c99fc3795aee337b07a775da73a89ef6a7d5b14ca07064c6c194440b3d9afe46b835514dff1d15ee23cbec3a4445b479281f49ffe48ed59b794b11bfc4d82495
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: gp-socks
+Architecture: arm64
+Version: 0.0.9-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 14749
+Filename: pool/xiongnemo/globalprotect-socks5/v0.0.9/gp-socks-v0.0.9-linux-arm64.deb
+Size: 7772192
+MD5sum: 7ed9fd4fea6991f14f50f37076ef01aa
+SHA1: 2593ad0f2b4d1ddd9e6bc6f78a245fc777cfb52c
+SHA256: 3786d4a54a429b78145352f2d0a054a65e0dbdee95de1f05b2859989ee39ce34
+SHA512: 838abfc864ee3c60fe7e94546685a50e6cb6c2dde3306996da3b0fcdbeb262d843af6547d8ea759c63e8d06fa11e4d65958f765f8963803aa9c7a9ecfc89caf8
+Homepage: https://github.com/xiongnemo/globalprotect-socks5
+Description: GlobalProtect VPN as a local SOCKS5 proxy, with SSO.
+
+Package: nermius
+Architecture: arm64
+Version: 0.0.33~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12224
+Filename: pool/xiongnemo/nermius/v0.0.33-dev-0786ecbdf09c/nermius-linux-arm64.deb
+Size: 5230092
+MD5sum: 0b74af5f48dbc5f70de63c618560ec94
+SHA1: a87266cba7d237c305d01a6a5df435d5d195bf70
+SHA256: a22e7d881b34212def224f58c9f9ea8f2242448af8a99b2d8595f70065ea96a1
+SHA512: 84ac29b7b1b739618374158bc13faeac79913b2ae0f9dd51193213e0df994b25a63e30efdd9154d33e72274de78761fa0c819850387aee60108b8601d94740c4
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: arm64
+Version: 0.0.39~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12288
+Filename: pool/xiongnemo/nermius/v0.0.39-dev-02a89ac43d86/nermius-linux-arm64.deb
+Size: 5249286
+MD5sum: d8f71bf7443a0dea74c87796aa374604
+SHA1: b190cb66de14fcd5b5cf4d535e557ba7c2a4ff5f
+SHA256: e39ae2a7c0787739bafeb9593c3eaf7b7d4f35c16867842ac2119998948ef27a
+SHA512: 020152108fbfac11e1964f6b00a5610ac3549057038fb027e060c87c47d8221b0b55193db6956674f59c80f6e2379423f7981509af89e7f294f32849b865b2be
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: nermius
+Architecture: arm64
+Version: 0.0.40~pre-1
+Priority: optional
+Section: utils
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 12288
+Filename: pool/xiongnemo/nermius/v0.0.40-dev-8d6a8cb478f7/nermius-linux-arm64.deb
+Size: 5249278
+MD5sum: b8898ca7874eb9019e38b226f8b038f9
+SHA1: 1d78dab195ddffe6d85fac71231297b98b9a91da
+SHA256: 81cd074a2e2a03371757aae6ea1a62e43d5a27a5027108055d7f41073c63cca0
+SHA512: c05d7394d2a6b18131222c06e663b96258a1b3cf71a8b5fda3047f5071229a35a3f1aff7ae88257b7738a6e38900fa0b4b4483dec7102db43420ef694ea5fa3e
+Homepage: https://github.com/xiongnemo/nermius
+Description: Portable SSH manager with a local encrypted SQLite vault, a Cobra CLI, and a tcell TUI.
+
+Package: rj-socks
+Architecture: arm64
+Version: 1.0.1~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 9928
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.1-dev-5df1ba56333f/rj-socks_v1.0.1-dev-5df1ba56333f_linux_arm64.deb
+Size: 4015190
+MD5sum: 1b5aa439f5224f72b8f8d8b51a6c84aa
+SHA1: 82072f2589983d92a67029b8f0309d68ea4ac90f
+SHA256: e80591feb07008ba1d447bc566a3d45029e87fe390204aeadc1fdd3623810055
+SHA512: 2db3cd8c5b1997dc5446a0b2390be2f4a7a1e8cce50786670c2e216f537dc0c9a70bae0763183310120a4ebd7e76a9cf6a24e71ef69ac539b68458756aafd4b1
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.1-dev-5df1ba56333f).
+
+Package: rj-socks
+Architecture: arm64
+Version: 1.0.4~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 9931
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.4-dev-e80962a2ed02/rj-socks_v1.0.4-dev-e80962a2ed02_linux_arm64.deb
+Size: 4031866
+MD5sum: 3552499c77e8280e338417d881ea128e
+SHA1: c7755e05d114a3ca15fa31ad2c96bceed9a2b993
+SHA256: f99a242e9ad2ebf837cdecf93c0869c6749ea67c24165f56628cc94e55d538a0
+SHA512: ea51ce929bb0a31561e818be85e18e89812603e9f30f7045f2a95b195b3dac306578fa0279c6a5e15c48277aa7207a822b21ddaceafa6e26922db33dc3a59f1e
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.4-dev-e80962a2ed02).
+
+Package: rj-socks
+Architecture: arm64
+Version: 1.0.5~pre-1
+Priority: optional
+Section: net
+Maintainer: xiongnemo <xiongnemo@users.noreply.github.com>
+Installed-Size: 9931
+Filename: pool/xiongnemo/ruijie-sslvpn-socks5/v1.0.5-dev-856bd4733f30/rj-socks_v1.0.5-dev-856bd4733f30_linux_arm64.deb
+Size: 4031868
+MD5sum: 99951f07de3e20d049a857950d9c5877
+SHA1: ef4e55a41c4b105dd38d7c38b874faeebb34b9a1
+SHA256: 5733ac59c8a4726688f119d750adbbcc172915d116fd291f3673f15c9c108bc8
+SHA512: 467408dde3715075fe6b9540b9463a921675842c42587ed2f376aa65b90a43e9342d94dbf572394928327d3618b1df8fdc2ef3d35283bf81731692a67e1f8817
+Homepage: https://github.com/xiongnemo/ruijie-sslvpn-socks5
+Description: Ruijie SSL VPN (RG-SSLVPN) as a local SOCKS5 proxy, without a TUN device (v1.0.5-dev-856bd4733f30).
